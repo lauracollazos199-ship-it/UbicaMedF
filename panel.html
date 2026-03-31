@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UbicaMed Panel</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <!-- Fondo difuminado -->
+  <div class="background-layer"></div>
+  <div class="overlay"></div>
+
+  <!-- Panel lateral oculto -->
+  <aside class="user-panel" id="userPanel">
+    <div class="panel-header">
+    </div>
+    <div class="user-section">
+      <i class="fa-solid fa-user"></i>
+      <div class="user-info">
+        <p class="user-name" id="userName">Usuario</p>
+        <p class="user-email" id="userEmail">usuario@email.com</p>
+      </div>
+    </div>
+    <nav class="menu">
+      <ul>
+        <li><i class="fa-solid fa-pen-to-square"></i> Actualizar datos</li>
+        <li><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Contenido principal -->
+  <main class="panel-main">
+    <!-- Barra superior -->
+    <header class="panel-topbar">
+      <div class="location">
+        <i class="fa-solid fa-location-dot"></i> Bogotá
+      </div>
+      <div class="logo-container">
+        <img src="images/logo.png" alt="UbicaMed Logo" class="logo-icon">
+        <span>UbicaMed</span>
+      </div>
+    </header>
+
+    <!-- Centro -->
+    <section class="content">
+      <h1>Buscar hospitales cercanos</h1>
+      <p class="subtitle">
+        Consulta los hospitales más cercanos según tu EPS y tu ubicación actual.
+      </p>
+
+      <!-- Tarjeta de búsqueda -->
+      <div class="panel-search-card">
+        <label for="eps">Tu EPS</label>
+        <select id="eps">
+          <option value="SURA">SURA</option>
+          <option value="Coomeva">Coomeva</option>
+          <option value="Sanitas">Sanitas</option>
+          <option value="Nueva EPS">Nueva EPS</option>
+        </select>
+        <button id="buscarBtn">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        Buscar</button>
+        <p id="result-text">
+          Mostrando resultados cerca de <span class="highlight">Bogotá</span>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/principal.js"></script>
+</body>
+</html>

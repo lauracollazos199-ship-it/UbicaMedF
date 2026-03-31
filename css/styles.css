@@ -192,6 +192,11 @@ body {
   pointer-events: none;
 }
 
+.input-icon i {
+  color: #9ca3af;
+  font-size: 1rem;
+}
+
 /* Forgot password */
 .forgot-password {
   text-align: right;
@@ -306,4 +311,350 @@ body {
 }
 .terms-text a:hover {
   text-decoration: underline;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background: #f9f9f9;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 20px;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.sidebar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1E6FB9;
+  margin-bottom: 30px;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.user-section i {
+  font-size: 2rem;
+  color: #1B3C8F;
+  margin-right: 10px;
+}
+
+.user-info .user-name {
+  font-weight: bold;
+}
+
+.user-info .user-email {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.menu ul {
+  list-style: none;
+}
+
+.menu li {
+  padding: 10px 0;
+  cursor: pointer;
+  color: #1E6FB9;
+  font-weight: 500;
+}
+
+.menu li:hover {
+  color: #1B3C8F;
+}
+
+/* Main content */
+.main-content {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  padding: 20px;
+}
+
+.top-bar {
+  background: #1E6FB9;
+  color: white;
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.content {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.content h1 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #1B3C8F;
+}
+
+.subtitle {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Search card */
+.search-card {
+  margin: 40px auto;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  width: 350px;
+  text-align: left;
+}
+
+.search-card label {
+  font-weight: bold;
+  color: #1B3C8F;
+}
+
+.search-card select {
+  width: 100%;
+  padding: 10px;
+  margin: 15px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.search-card button {
+  width: 100%;
+  padding: 12px;
+  background: #1E6FB9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  transition: background 0.3s ease;
+}
+
+.search-card button:hover {
+  background: #1B3C8F;
+}
+
+.search-card #result-text {
+  margin-top: 20px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.search-card .highlight {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+/* === Reglas exclusivas para el Panel UbicaMed === */
+
+.panel-topbar {
+  position: static; 
+  
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.panel-topbar .logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-left: auto; 
+}
+
+.panel-topbar .logo-container i {
+  font-size: 1.4rem;
+  color: #1E6FB9;
+  margin-right: -3px;
+}
+
+
+.panel-topbar .logo-container span {
+  font-size: 1.4rem;
+  font-weight: bold;
+  font-weight: 700;
+  color: #1E6FB9;
+  margin-left: 0;
+  
+}
+
+.panel-topbar .location {
+  font-size: 1.3rem;              
+  font-weight: 600;
+  color: #1B3C8F;                 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+}
+
+.panel-topbar .top-icons i {
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.panel-topbar .top-icons i:hover {
+  color: #4CAF50;
+}
+
+
+
+/* Contenido principal del panel */
+.panel-main {
+  margin-left: 250px;   
+  padding: 20px; 
+  margin-top: -20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  transform: translateY(-25px);
+}
+
+/* Tarjeta de búsqueda */
+.panel-search-card {
+  margin: 30px auto; 
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  width: 400px;
+  text-align: left;
+}
+
+.panel-search-card label {
+  font-weight: bold;
+  color: #1B3C8F;
+}
+
+.panel-search-card select {
+  width: 100%;
+  padding: 10px;
+  margin: 15px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.panel-search-card button {
+  width: 100%;
+  padding: 14px;
+  background: #1E6FB9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  transition: background 0.3s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.panel-search-card button i {
+  font-size: 0.95rem;     
+  opacity: 0.8;           
+  transform: scale(0.9);  
+}
+
+.panel-search-card button:hover {
+  background: #1B3C8F;
+}
+
+.panel-search-card #result-text {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: #333;
+  text-align: center; 
+}
+
+.panel-search-card .highlight {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+/* Panel de usuario lateral */
+.user-panel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 250px;
+  height: 100vh;
+  background: rgba(260,260,260,0.1);
+  backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+  z-index: 20;
+  padding: 20px;
+
+}
+
+.user-panel .panel-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #1E6FB9;
+  margin-bottom: 20px;
+}
+
+.user-panel .user-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.user-panel .user-section i {
+  font-size: 2rem;
+  color: #1B3C8F;
+  margin-right: 10px;
+}
+
+.user-panel .user-info .user-name {
+  font-weight: bold;
+}
+
+.user-panel .user-info .user-email {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.user-panel .menu ul {
+  list-style: none;
+}
+
+.user-panel .menu li {
+  padding: 10px 0;
+  cursor: pointer;
+  color: #1E6FB9;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-panel .menu li:hover {
+  color: #1B3C8F;
 }
