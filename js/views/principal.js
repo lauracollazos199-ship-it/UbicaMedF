@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-
   const buscarBtn = document.getElementById("buscarBtn");
   const epsSelect = document.getElementById("eps");
   const resultText = document.getElementById("result-text");
@@ -7,26 +6,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const mapContainer = document.getElementById("map-container");
   const hospitalInfo = document.getElementById("hospital-info");
 
-  const userData = {
-    nombre: "Usuario",
-    email: "usuario@email.com"
-  };
+  // ============================
+  // USUARIO
+  // ============================
+  const userData = JSON.parse(localStorage.getItem("usuario"));
 
-  document.getElementById("userName").textContent = userData.nombre;
-  document.getElementById("userEmail").textContent = userData.email;
+  if (userData) {
+    document.getElementById("userName").textContent = userData.nombre;
+    document.getElementById("userEmail").textContent = userData.email;
+  } else {
+    window.location.href = "index.html"; // Si no hay usuario, vuelve al login
+  }
 
-  let map;
-  let markers = [];
-  let cacheResultados = {};
-  let userMarker; // 🔹 marcador único del usuario
+  // ============================
+  // MAPA
+  // ============================
+  let map = L.map('map').setView([4.6097, -74.0817], 12);
 
-  // 🔹 Inicializar mapa una sola vez (Bogotá por defecto)
-  map = L.map('map').setView([4.6097, -74.0817], 12);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap'
   }).addTo(map);
 
-  // 🔹 Ícono rojo para el usuario
   const userIcon = L.icon({
     iconUrl: 'images/icono_rojo.png',
     iconSize: [32, 32],
@@ -34,32 +34,34 @@ document.addEventListener("DOMContentLoaded", () => {
     popupAnchor: [0, -32]
   });
 
-  // 🔹 Crear marcador del usuario una sola vez
-  userMarker = L.marker([4.6097, -74.0817], { icon: userIcon })
+  let userMarker = L.marker([4.6097, -74.0817], { icon: userIcon })
     .addTo(map)
     .bindPopup("Tu ubicación");
+
+  let markers = [];
+  let cacheResultados = {};
+
+  // ============================
+  // FUNCIONES
+  // ============================
 
   function obtenerUbicacion() {
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(
-        (pos) => resolve({
-          lat: pos.coords.latitude,
-          lng: pos.coords.longitude
-        }),
+        pos => resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
         () => reject("Debes permitir la ubicación para continuar")
       );
     });
   }
 
   function mostrarHospitalesEnMapa(hospitales) {
+    // Limpiar marcadores anteriores
     markers.forEach(m => map.removeLayer(m));
     markers = [];
 
     hospitales.forEach((h, index) => {
       const iconoHospital = L.icon({
-        iconUrl: index === 0 
-          ? 'images/icono_verde.png'   // hospital más cercano
-          : 'images/icono_azul.png',   // otros hospitales
+        iconUrl: index === 0 ? 'images/icono_verde.png' : 'images/icono_azul.png',
         iconSize: [32, 32],
         iconAnchor: [16, 32],
         popupAnchor: [0, -32]
@@ -88,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
         option.textContent = eps.nombre;
         epsSelect.appendChild(option);
       });
-
     } catch (error) {
       console.error("Error cargando EPS:", error);
       resultText.textContent = "No se pudieron cargar las EPS";
@@ -98,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
   cargarEPS();
 
   // ============================
-  // BUSCAR
+  // BUSCAR HOSPITALES
   // ============================
   buscarBtn.addEventListener("click", async () => {
     try {
@@ -106,7 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
       resultText.innerHTML = '<div class="loader"></div><p>Obteniendo ubicación...</p>';
 
       const ubicacion = await obtenerUbicacion();
-
       resultText.innerHTML = '<div class="loader"></div><p>Buscando hospitales cercanos...</p>';
 
       const key = `${eps}-${ubicacion.lat}-${ubicacion.lng}`;
@@ -128,12 +128,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // 🔹 Mostrar mapa SOLO cuando ya hay hospitales
       mapContainer.style.display = "block";
 
-      // 🔹 Mover marcador del usuario en vez de duplicarlo
+      // Actualizar ubicación del usuario
       userMarker.setLatLng([ubicacion.lat, ubicacion.lng]).openPopup();
-
       map.setView([ubicacion.lat, ubicacion.lng], 13);
       setTimeout(() => map.invalidateSize(), 200);
 
@@ -170,8 +168,21 @@ document.addEventListener("DOMContentLoaded", () => {
     markers = [];
   });
 
+  // ============================
+  // LOGOUT
+  // ============================
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("usuario");
+      localStorage.removeItem("token");
+
+      if (window.google && google.accounts) {
+        google.accounts.id.cancel();
+      }
+
+      window.location.href = "index.html";
+    });
+  }
+
 });
-
-
-
-
