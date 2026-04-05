@@ -6,21 +6,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const mapContainer = document.getElementById("map-container");
   const hospitalInfo = document.getElementById("hospital-info");
 
-  // ============================
+ 
   // USUARIO
-  // ============================
+  
   const userData = JSON.parse(localStorage.getItem("usuario"));
 
   if (userData) {
-    document.getElementById("userName").textContent = userData.nombre;
-    document.getElementById("userEmail").textContent = userData.email;
+    document.getElementById("userName").textContent = userData.nombre || "Usuario";
+    document.getElementById("userEmail").textContent = userData.email || "usuario@email.com";
   } else {
     window.location.href = "index.html"; // Si no hay usuario, vuelve al login
   }
 
-  // ============================
+  
   // MAPA
-  // ============================
+
   let map = L.map('map').setView([4.6097, -74.0817], 12);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -41,9 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let markers = [];
   let cacheResultados = {};
 
-  // ============================
+  
   // FUNCIONES
-  // ============================
 
   function obtenerUbicacion() {
     return new Promise((resolve, reject) => {
@@ -55,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function mostrarHospitalesEnMapa(hospitales) {
-    // Limpiar marcadores anteriores
     markers.forEach(m => map.removeLayer(m));
     markers = [];
 
@@ -98,9 +96,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   cargarEPS();
 
-  // ============================
+ 
   // BUSCAR HOSPITALES
-  // ============================
+
   buscarBtn.addEventListener("click", async () => {
     try {
       const eps = epsSelect.value;
@@ -130,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       mapContainer.style.display = "block";
 
-      // Actualizar ubicación del usuario
+      
       userMarker.setLatLng([ubicacion.lat, ubicacion.lng]).openPopup();
       map.setView([ubicacion.lat, ubicacion.lng], 13);
       setTimeout(() => map.invalidateSize(), 200);
@@ -155,9 +153,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ============================
+  
   // VOLVER
-  // ============================
+
   volverBusquedaBtn.addEventListener("click", () => {
     document.getElementById("searchCard").style.display = "block";
     mapContainer.style.display = "none";
@@ -168,9 +166,9 @@ document.addEventListener("DOMContentLoaded", () => {
     markers = [];
   });
 
-  // ============================
+  
   // LOGOUT
-  // ============================
+
   const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {

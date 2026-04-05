@@ -29,12 +29,12 @@ body {
 
 /* Container layout */
 .container {
-  height: calc(100vh - 80px); /* ocupa toda la pantalla menos el navbar */
+  height: calc(100vh - 80px); 
   display: flex;
   flex-direction: column;
-  justify-content: center;    /* centra verticalmente todo el bloque */
+  justify-content: center;    
   align-items: center;
-  transform: translateY(-28px); /* sube todo el bloque un poco */
+  transform: translateY(-28px); 
 }
 
 /* Navbar */
@@ -71,6 +71,7 @@ body {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   transition: transform 0.2s ease;
 }
+
 .btn-primary:hover { transform: translateY(-2px); }
 
 .btn-outline {
@@ -79,9 +80,10 @@ body {
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   transition: transform 0.2s ease;
 }
+
 .btn-outline:hover { transform: translateY(-2px); }
 
-/* ✅ Navbar button alignment fix */
+/* Navbar button */
 .nav-buttons .btn-primary,
 .nav-buttons .btn-outline {
   padding: 0.6rem 1.2rem;
@@ -95,10 +97,12 @@ body {
 .hero {
   text-align: center;
 }
+
 .headline {
   font-size: 60px; font-weight: 700; margin-bottom: 0.5rem;
   color: #1B3C8F;
 }
+
 .headline.gradient {
   background: linear-gradient(90deg, #1E6FB9, #4CAF50);
   -webkit-background-clip: text;
@@ -106,6 +110,7 @@ body {
   background-clip: text;   /* estándar */
   color: transparent;      /* estándar */
 }
+
 .subtext {
   font-size: 1.2rem; color: #4b5563; margin-top: 1rem;
   max-width: 700px; margin-left: auto; margin-right: auto;
@@ -116,6 +121,7 @@ body {
   display: flex; gap: 2rem; justify-content: center;
   margin-top: 2.5rem;
 }
+
 .card {
   display: flex; align-items: center;
   background: rgba(255,255,255,0.6);
@@ -124,12 +130,14 @@ body {
   box-shadow: 0 10px 24px rgba(0,0,0,0.08);
   width: 300px; padding: 1.5rem;
 }
+
 .card-icon {
   width: 60px;
   height: 60px;
   margin-right: 1rem;
   object-fit: contain;
 }
+
 .card-text h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; color: #111827; }
 .card-text p { font-size: 1rem; color: #4b5563; }
 
@@ -176,6 +184,7 @@ body {
   position: relative;
   margin: 0.6rem 0;
 }
+
 .input-group input {
   width: 100%;
   padding: 0.9rem 0.9rem 0.9rem 2.5rem; 
@@ -184,6 +193,7 @@ body {
   font-size: 1rem;
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
 }
+
 .input-icon {
   position: absolute;
   left: 10px;
@@ -197,17 +207,18 @@ body {
   font-size: 1rem;
 }
 
-/* Forgot password */
 .forgot-password {
   text-align: right;
   margin: 0.3rem 0 1rem 0;
 }
+
 .forgot-password a {
   font-size: 0.85rem;
   color: #1E6FB9;
   text-decoration: none;
   cursor: pointer;
 }
+
 .forgot-password a:hover {
   text-decoration: underline;
 }
@@ -250,10 +261,12 @@ body {
   background: #f5f5f5;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
-.google-icon {
-  width: 18px;
-  height: 18px;
+
+#google-btn {
+  width: 300px;   
+  height: 40px;   
 }
+
 
 /* DIVIDER */
 .divider {
@@ -282,7 +295,6 @@ body {
   margin-left: 0.75em;
 }
 
-/* Línea especial debajo del título */
 .divider.top {
   margin: 0.5rem auto 1.4rem auto; 
 }
@@ -462,7 +474,7 @@ body {
   height: auto;
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding: 20px 20px 0 20px;
   margin-bottom: 20px;
 }
 
@@ -514,7 +526,8 @@ body {
   align-items: center;   
   justify-content: flex-start; 
   height: 100vh;
-  overflow-y: auto;   /* Scroll vertical */
+  overflow-y: auto;   
+  
 }
 
 /* CONTENIDO */
@@ -636,17 +649,17 @@ body {
   justify-content: center;
   gap: 10px;
   font-weight: bold;
-  font-size: 1.2rem;   /* 🔹 más grande */
+  font-size: 1.2rem;   
   margin-bottom: 10px;
 }
 
 .hospital-card .hospital-name i {
   color: #1B3C8F;
-  font-size: 1.4rem;   /* 🔹 más grande */
+  font-size: 1.4rem;   
 }
 
 .hospital-card .hospital-distance {
-  font-size: 1.1rem;   /* 🔹 más grande */
+  font-size: 1.1rem;  
   color: #333;
   font-weight: 500;
 }

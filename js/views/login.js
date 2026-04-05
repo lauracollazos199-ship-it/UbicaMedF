@@ -1,17 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // =========================
+  // FUNCIONES
+  
+  function formatName(name) {
+  if (!name) return "Usuario";
+  return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+function parseJwt(token) {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(
+    atob(base64)
+      .split('')
+      .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+      .join('')
+  );
+  return JSON.parse(jsonPayload);
+}
+
+  
   // MODAL
-  // =========================
 
   document.querySelectorAll('[data-login]').forEach(btn => {
     btn.addEventListener('click', () => {
       document.getElementById('loginModal').style.display = 'flex';
 
-      // Render con pequeño delay (asegura que el DOM y Google estén listos)
-      setTimeout(() => {
-        renderGoogleButton();
-      }, 200);
     });
   });
 
@@ -23,9 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  // =========================
+  
   // LOGIN TRADICIONAL
-  // =========================
 
   const loginForm = document.getElementById("loginForm");
 
@@ -57,16 +70,15 @@ document.addEventListener("DOMContentLoaded", () => {
           
           localStorage.setItem("usuario", JSON.stringify(usuario));
           
-          window.location.href = "/panel.html";
+          window.location.href = "panel.html";
         })
         .catch(err => alert(err.message));
     });
   }
 
 
-  // =========================
+ 
   // LOGIN GOOGLE
-  // =========================
 
   window.handleCredentialResponse = function (response) {
     const token = response.credential;
@@ -85,23 +97,24 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(data => {
         localStorage.setItem("token", data.access_token);
 
+        const payload = parseJwt(data.access_token);
+
          // 🔹 Guardar datos del usuario
          const usuario = {
-          nombre: data.nombre,
-          email: data.email
+          nombre: formatName(data.nombre || payload.email.split("@")[0]),
+          email: data.email || payload.email
         };
         
         localStorage.setItem("usuario", JSON.stringify(usuario));
         
-        window.location.href = "/panel.html";
+        window.location.href = "panel.html";
       })
       .catch(err => alert(err.message));
   };
 
 
-  // =========================
+
   // ESPERAR GOOGLE Y CONFIGURAR
-  // =========================
 
   function waitForGoogle(callback) {
     const interval = setInterval(() => {
@@ -117,12 +130,13 @@ document.addEventListener("DOMContentLoaded", () => {
       client_id: "575523896419-jl0b1qdq8fblhkka7icqr39er72nmpo7.apps.googleusercontent.com",
       callback: handleCredentialResponse
     });
+
+     renderGoogleButton();
   });
 
 
-  // =========================
+  
   // RENDER BOTÓN GOOGLE
-  // =========================
 
   function renderGoogleButton() {
     if (!window.google || !google.accounts) return;
@@ -140,3 +154,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
+
