@@ -699,3 +699,58 @@ body {
   padding: 20px;
 }
 
+/* === Modal de recuperación de contraseña === */
+#resetModal .modal-content {
+  width: 460px;
+  padding: 2rem;
+}
+
+#resetModal h2 {
+  color: #1B3C8F;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.reset-subtext {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+#resetModal .input-group {
+  margin-bottom: 1rem;
+}
+
+#resetModal .btn-primary {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.back-login {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.back-login a {
+  color: #4CAF50;
+  text-decoration: underline;
+}
+
+.terms-text {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: #555;
+}
+
+/* === Recuperar contraseña ===*/
+
+#changePasswordForm .input-group {
+  margin-bottom: 1rem;
+}
+
+#changePasswordForm .btn-primary {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+}

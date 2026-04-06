@@ -112,6 +112,39 @@
     </div>
   </div>
 
+  <!-- Modal de recuperación -->
+<div id="resetModal" class="modal-overlay">
+  <div class="modal-content">
+    <h2>¿Olvidaste tu contraseña?</h2>
+    <div class="divider"></div> 
+    <p class="reset-subtext">Ingresa tu correo electrónico para restaurar tu contraseña.</p>
+
+    <form id="resetForm">
+      <div class="input-group">
+        <span class="input-icon">
+          <i class="fa-solid fa-envelope"></i>
+        </span>
+        <input type="email" id="resetEmail" placeholder="Correo electrónico" required>
+      </div>
+
+      <button type="submit" class="btn-primary">Restablecer contraseña</button>
+    </form>
+
+     <div class="divider"></div> 
+
+    <p class="back-login">
+      ¿Recuerdas tu contraseña? <a href="#" id="backToLogin">Inicia sesión</a>
+    </p>
+
+     <div class="divider"></div> 
+
+    <p class="terms-text">
+      Si continúas, indicas que aceptas y reconoces las 
+      <a href="#">Políticas de privacidad</a>.
+    </p>
+  </div>
+</div>
+
   <!-- Scripts -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 

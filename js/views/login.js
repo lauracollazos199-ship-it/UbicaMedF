@@ -37,6 +37,56 @@ function parseJwt(token) {
   });
 
 
+// MODAL RESTAURAR CONTRASEÑA
+
+document.querySelectorAll('.forgot-password a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('resetModal').style.display = 'flex';
+    document.getElementById('loginModal').style.display = 'none';
+  });
+});
+
+// Cerrar modal al hacer click fuera
+document.getElementById('resetModal').addEventListener('click', (e) => {
+  if (e.target.id === 'resetModal') {
+    document.getElementById('resetModal').style.display = 'none';
+  }
+});
+
+// Volver al login
+document.getElementById('backToLogin').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('resetModal').style.display = 'none';
+  document.getElementById('loginModal').style.display = 'flex';
+});
+
+// Envío del formulario
+const resetForm = document.getElementById("resetForm");
+if (resetForm) {
+  resetForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("resetEmail").value;
+
+    try {
+      const res = await fetch("http://localhost:8000/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+
+      if (!res.ok) throw new Error("No se pudo enviar el correo de recuperación");
+
+      alert("Se ha enviado un enlace de recuperación a tu correo.");
+      document.getElementById('resetModal').style.display = 'none';
+      document.getElementById('loginModal').style.display = 'flex';
+    } catch (err) {
+      alert(err.message);
+    }
+  });
+}
+
+
   
   // LOGIN TRADICIONAL
 

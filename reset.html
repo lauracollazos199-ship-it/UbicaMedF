@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>UbicaMed - Cambiar contraseña</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <!-- Modal flotante -->
+  <div class="modal-overlay" style="display:flex;">
+    <div class="modal-content" style="width:500px;">
+      <h2>Restablecer contraseña</h2>
+      <p class="reset-subtext">Ingresa tu nueva contraseña para continuar.</p>
+
+      <div class="divider"></div>
+
+      <form id="changePasswordForm">
+        <!-- Campo nueva contraseña -->
+        <div class="input-group">
+          <span class="input-icon">
+            <i class="fa-solid fa-lock"></i>
+          </span>
+          <input type="password" id="newPassword" placeholder="Nueva contraseña" required>
+        </div>
+
+        <!-- Campo confirmar contraseña -->
+        <div class="input-group">
+          <span class="input-icon">
+            <i class="fa-solid fa-lock"></i>
+          </span>
+          <input type="password" id="confirmPassword" placeholder="Confirmar contraseña" required>
+        </div>
+
+        <button type="submit" class="btn-primary">Cambiar contraseña</button>
+      </form>
+
+      <div class="divider"></div>
+
+      <p class="terms-text">
+        Si continúas, indicas que aceptas y reconoces las 
+        <a href="#">Políticas de privacidad</a>.
+      </p>
+    </div>
+  </div>
+
+  <script src="js/views/reset.js"></script>
+</body>
+</html>
