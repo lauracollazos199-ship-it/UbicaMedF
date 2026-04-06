@@ -3,91 +3,112 @@ document.addEventListener("DOMContentLoaded", () => {
   // FUNCIONES
   
   function formatName(name) {
-  if (!name) return "Usuario";
-  return name.charAt(0).toUpperCase() + name.slice(1);
-}
+    if (!name) return "Usuario";
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
 
-function parseJwt(token) {
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  const jsonPayload = decodeURIComponent(
-    atob(base64)
-      .split('')
-      .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-      .join('')
-  );
-  return JSON.parse(jsonPayload);
-}
+  function parseJwt(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+    return JSON.parse(jsonPayload);
+  }
 
-  
   // MODAL
 
   document.querySelectorAll('[data-login]').forEach(btn => {
     btn.addEventListener('click', () => {
       document.getElementById('loginModal').style.display = 'flex';
-
     });
   });
 
   document.getElementById('loginModal').addEventListener('click', (e) => {
     if (e.target.id === 'loginModal') {
       document.getElementById('loginModal').style.display = 'none';
-
     }
   });
 
+  // RESET PASSWORD
 
-// MODAL RESTAURAR CONTRASEÑA
-
-document.querySelectorAll('.forgot-password a').forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    document.getElementById('resetModal').style.display = 'flex';
-    document.getElementById('loginModal').style.display = 'none';
+  document.querySelectorAll('.forgot-password a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('resetModal').style.display = 'flex';
+      document.getElementById('loginModal').style.display = 'none';
+    });
   });
-});
 
-// Cerrar modal al hacer click fuera
-document.getElementById('resetModal').addEventListener('click', (e) => {
-  if (e.target.id === 'resetModal') {
-    document.getElementById('resetModal').style.display = 'none';
-  }
-});
-
-// Volver al login
-document.getElementById('backToLogin').addEventListener('click', (e) => {
-  e.preventDefault();
-  document.getElementById('resetModal').style.display = 'none';
-  document.getElementById('loginModal').style.display = 'flex';
-});
-
-// Envío del formulario
-const resetForm = document.getElementById("resetForm");
-if (resetForm) {
-  resetForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const email = document.getElementById("resetEmail").value;
-
-    try {
-      const res = await fetch("http://localhost:8000/auth/forgot-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
-      });
-
-      if (!res.ok) throw new Error("No se pudo enviar el correo de recuperación");
-
-      alert("Se ha enviado un enlace de recuperación a tu correo.");
+  document.getElementById('resetModal').addEventListener('click', (e) => {
+    if (e.target.id === 'resetModal') {
       document.getElementById('resetModal').style.display = 'none';
-      document.getElementById('loginModal').style.display = 'flex';
-    } catch (err) {
-      alert(err.message);
     }
   });
-}
 
+  document.getElementById('backToLogin').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('resetModal').style.display = 'none';
+    document.getElementById('loginModal').style.display = 'flex';
+  });
 
-  
+  const resetForm = document.getElementById("resetForm");
+
+  if (resetForm) {
+    resetForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("resetEmail").value;
+
+      try {
+        const res = await fetch("http://localhost:8000/auth/forgot-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email })
+        });
+
+        if (!res.ok) {
+          const error = await res.json();
+          throw new Error(error.detail || "No se pudo enviar el correo de recuperación");
+        }
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Correo enviado',
+          text: 'Se ha enviado un enlace de recuperación a tu correo',
+          background: '#f9f9f9',
+          color: '#333',
+          confirmButtonColor: '#1E6FB9',
+          customClass: {
+            popup: 'swal-custom-popup',
+            title: 'swal-custom-title',
+            confirmButton: 'swal-custom-button'
+          }
+        });
+
+        document.getElementById('resetModal').style.display = 'none';
+        document.getElementById('loginModal').style.display = 'flex';
+
+      } catch (err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: err.message,
+          background: '#f9f9f9',
+          color: '#333',
+          confirmButtonColor: '#1E6FB9',
+          customClass: {
+            popup: 'swal-custom-popup',
+            title: 'swal-custom-title',
+            confirmButton: 'swal-custom-button'
+          }
+        });
+      }
+    });
+  }
+
   // LOGIN TRADICIONAL
 
   const loginForm = document.getElementById("loginForm");
@@ -107,7 +128,7 @@ if (resetForm) {
         body: JSON.stringify({ email, password })
       })
         .then(res => {
-          if (!res.ok) throw new Error("Credenciales incorrectas");
+          if (!res.ok) throw new Error("El correo o contraseña no son correctos.");
           return res.json();
         })
         .then(data => {
@@ -117,17 +138,28 @@ if (resetForm) {
             nombre: data.nombre,
             email: data.email
           };
-          
+
           localStorage.setItem("usuario", JSON.stringify(usuario));
-          
           window.location.href = "panel.html";
         })
-        .catch(err => alert(err.message));
+        .catch(err => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error de inicio de sesión',
+            text: err.message,
+            background: '#f9f9f9',
+            color: '#333',
+            confirmButtonColor: '#1E6FB9',
+            customClass: {
+              popup: 'swal-custom-popup',
+              title: 'swal-custom-title',
+              confirmButton: 'swal-custom-button'
+            }
+          });
+        });
     });
   }
 
-
- 
   // LOGIN GOOGLE
 
   window.handleCredentialResponse = function (response) {
@@ -149,22 +181,30 @@ if (resetForm) {
 
         const payload = parseJwt(data.access_token);
 
-         // 🔹 Guardar datos del usuario
-         const usuario = {
+        const usuario = {
           nombre: formatName(data.nombre || payload.email.split("@")[0]),
           email: data.email || payload.email
         };
-        
+
         localStorage.setItem("usuario", JSON.stringify(usuario));
-        
         window.location.href = "panel.html";
       })
-      .catch(err => alert(err.message));
+      .catch(err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error en login con Google',
+          text: err.message,
+          background: '#f9f9f9',
+          color: '#333',
+          confirmButtonColor: '#1E6FB9',
+          customClass: {
+            popup: 'swal-custom-popup',
+            title: 'swal-custom-title',
+            confirmButton: 'swal-custom-button'
+          }
+        });
+      });
   };
-
-
-
-  // ESPERAR GOOGLE Y CONFIGURAR
 
   function waitForGoogle(callback) {
     const interval = setInterval(() => {
@@ -181,12 +221,8 @@ if (resetForm) {
       callback: handleCredentialResponse
     });
 
-     renderGoogleButton();
+    renderGoogleButton();
   });
-
-
-  
-  // RENDER BOTÓN GOOGLE
 
   function renderGoogleButton() {
     if (!window.google || !google.accounts) return;

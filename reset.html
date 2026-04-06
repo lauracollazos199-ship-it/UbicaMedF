@@ -17,23 +17,33 @@
 
       <form id="changePasswordForm">
         <!-- Campo nueva contraseña -->
-        <div class="input-group">
-          <span class="input-icon">
-            <i class="fa-solid fa-lock"></i>
-          </span>
-          <input type="password" id="newPassword" placeholder="Nueva contraseña" required>
-        </div>
+  <div class="input-group">
+    <span class="input-icon">
+      <i class="fa-solid fa-lock"></i>
+    </span>
+    <input type="password" id="newPassword" placeholder="Nueva contraseña" required>
+    <span class="toggle-password" id="toggleNewPassword">
+    <i class="fa-solid fa-eye"></i>
+  </span>
+  </div>
+  <small id="passwordHint" class="password-hint">
+    Entre 8 y 64 caracteres, al menos una mayúscula, una minúscula, un número y un carácter especial.
+  </small>
 
-        <!-- Campo confirmar contraseña -->
-        <div class="input-group">
-          <span class="input-icon">
-            <i class="fa-solid fa-lock"></i>
-          </span>
-          <input type="password" id="confirmPassword" placeholder="Confirmar contraseña" required>
-        </div>
+  <!-- Campo confirmar contraseña -->
+  <div class="input-group">
+    <span class="input-icon">
+      <i class="fa-solid fa-lock"></i>
+    </span>
+    <input type="password" id="confirmPassword" placeholder="Confirmar contraseña" required>
+    <span class="toggle-password" id="toggleConfirmPassword">
+    <i class="fa-solid fa-eye"></i>
+  </span>
+  </div>
+  <small id="passwordMatch" class="password-hint"></small>
 
-        <button type="submit" class="btn-primary">Cambiar contraseña</button>
-      </form>
+  <button type="submit" class="btn-primary">Cambiar contraseña</button>
+</form>
 
       <div class="divider"></div>
 
@@ -45,5 +55,6 @@
   </div>
 
   <script src="js/views/reset.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

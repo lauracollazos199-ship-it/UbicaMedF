@@ -620,6 +620,11 @@ body {
   color: #1B3C8F;
 }
 
+.leaflet-marker-icon {
+  object-fit: cover;   
+  border-radius: 50%;  
+}
+
 /* INFO */
 #hospital-info {
   margin-top: 20px;
@@ -753,4 +758,72 @@ body {
   width: 100%;
   padding: 1rem;
   border-radius: 8px;
+}
+
+/** === Cuadros de alerta === */
+ .swal-custom-popup {
+  border-radius: 12px;
+  font-family: 'Arial', sans-serif; 
+}
+
+.swal-custom-title {
+  color: #1E6FB9; 
+  font-weight: bold;
+}
+
+.swal-custom-button {
+  background-color: #1E6FB9;
+  border-radius: 6px;
+  padding: 8px 16px 
+
+}
+
+.swal2-icon.swal2-error {
+  border-color: #4CAF50;   
+  color: #4CAF50;          
+}
+
+.swal2-icon.swal2-error [class^=swal2-x-mark-line] {
+  background-color: #4CAF50;
+}
+
+/* === Reglas de contraseña ===*/
+
+.requirements-box {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.requirements-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.requirements-box li {
+  margin: 3px 0;
+  transition: color 0.3s ease;
+}
+
+.password-hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: #999; 
+  transition: color 0.3s ease;
+  text-align: left; 
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #999;
+}
+
+.toggle-password:hover {
+  color: #1E6FB9;
 }

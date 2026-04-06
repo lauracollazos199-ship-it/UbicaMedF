@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("userName").textContent = userData.nombre || "Usuario";
     document.getElementById("userEmail").textContent = userData.email || "usuario@email.com";
   } else {
-    window.location.href = "index.html"; // Si no hay usuario, vuelve al login
+    window.location.href = "index.html"; 
   }
 
   
@@ -48,10 +48,25 @@ document.addEventListener("DOMContentLoaded", () => {
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(
         pos => resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
-        () => reject("Debes permitir la ubicación para continuar")
-      );
-    });
-  }
+         () => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Ubicación requerida',
+          text: 'Debes permitir la ubicación para continuar',
+          background: '#f9f9f9',
+          color: '#333',
+          confirmButtonColor: '#1E6FB9',
+          customClass: {
+            popup: 'swal-custom-popup',
+            title: 'swal-custom-title',
+            confirmButton: 'swal-custom-button'
+          }
+        });
+        reject("Debes permitir la ubicación para continuar");
+      }
+    );
+  });
+}
 
   function mostrarHospitalesEnMapa(hospitales) {
     markers.forEach(m => map.removeLayer(m));
@@ -89,10 +104,21 @@ document.addEventListener("DOMContentLoaded", () => {
         epsSelect.appendChild(option);
       });
     } catch (error) {
-      console.error("Error cargando EPS:", error);
-      resultText.textContent = "No se pudieron cargar las EPS";
-    }
+      Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'No se pudieron cargar las EPS',
+      background: '#f9f9f9',
+      color: '#333',
+      confirmButtonColor: '#1E6FB9',
+      customClass: {
+        popup: 'swal-custom-popup',
+        title: 'swal-custom-title',
+        confirmButton: 'swal-custom-button'
+      }
+    });
   }
+}
 
   cargarEPS();
 
@@ -148,10 +174,21 @@ document.addEventListener("DOMContentLoaded", () => {
       volverBusquedaBtn.style.display = "block";
 
     } catch (error) {
-      console.error("ERROR GENERAL:", error);
-      hospitalInfo.innerHTML = "Error: " + error;
-    }
-  });
+      Swal.fire({
+      icon: 'error',
+      title: 'Error en la búsqueda',
+      text: error,
+      background: '#f9f9f9',
+      color: '#333',
+      confirmButtonColor: '#1E6FB9',
+      customClass: {
+        popup: 'swal-custom-popup',
+        title: 'swal-custom-title',
+        confirmButton: 'swal-custom-button'
+      }
+    });
+  }
+});
 
   
   // VOLVER
