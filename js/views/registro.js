@@ -118,4 +118,27 @@ window.addEventListener("click", (e) => {
 
 });
 
+function renderGoogleRegister() {
+  if (!window.google || !google.accounts) return;
+
+  const container = document.getElementById("google-btn-register");
+  if (!container) return;
+
+  if (container.children.length > 0) return;
+
+  google.accounts.id.renderButton(container, {
+    theme: "outline",
+    size: "large",
+    width: 300
+  });
+}
+
+
+const interval = setInterval(() => {
+  if (window.google && google.accounts) {
+    clearInterval(interval);
+    renderGoogleRegister();
+  }
+}, 100);
+
 });
