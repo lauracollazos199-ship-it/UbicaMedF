@@ -112,6 +112,63 @@
     </div>
   </div>
 
+  </div>
+</div>
+
+
+<!-- MODAL REGISTRO -->
+<div id="registerModal" class="modal-overlay">
+  <div class="modal-content">
+
+    <h2>Crear cuenta</h2>
+    <div class="divider top"></div>
+
+    <form id="registerForm">
+
+      <div class="input-group">
+        <span class="input-icon">
+          <i class="fa-solid fa-user"></i>
+        </span>
+        <input type="text" id="nombre" placeholder="Nombre completo" required>
+      </div>
+
+      <div class="input-group">
+        <span class="input-icon">
+          <i class="fa-solid fa-envelope"></i>
+        </span>
+        <input type="email" id="registerEmail" placeholder="Correo electrónico" required>
+      </div>
+
+      <div class="input-group">
+        <span class="input-icon">
+          <i class="fa-solid fa-lock"></i>
+        </span>
+        <input type="password" id="registerPassword" placeholder="Contraseña" required>
+      </div>
+
+      <div class="input-group">
+        <span class="input-icon">
+          <i class="fa-solid fa-lock"></i>
+        </span>
+        <input type="password" id="confirmPassword" placeholder="Confirmar contraseña" required>
+      </div>
+
+      <button type="submit" class="btn-primary">
+        Registrarse
+      </button>
+
+    </form>
+
+    <div class="divider"></div>
+
+    <p class="register-text">
+      ¿Ya tienes cuenta?
+      <a href="#" class="login-link">Inicia sesión</a>
+    </p>
+
+  </div>
+</div>
+
   <!-- Modal de recuperación -->
 <div id="resetModal" class="modal-overlay">
   <div class="modal-content">
@@ -152,5 +209,6 @@
   <script src="js/views/home.js"></script>
   <script src="js/views/login.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/views/registro.js"></script>
 </body>
 </html>
