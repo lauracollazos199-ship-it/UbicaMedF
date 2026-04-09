@@ -1,7 +1,52 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // FUNCIONES
-  
+ 
+  // FUNCIONES GENERALES
+
+  function clearForms() {
+    document.querySelectorAll("form").forEach(form => {
+      form.reset();
+    });
+
+    document.querySelectorAll(".hint, .password-hint").forEach(el => {
+      el.textContent = "";
+    });
+  }
+
+  function openModal(modal) {
+    if (!modal) return;
+
+    document.querySelectorAll(".modal-overlay").forEach(m => {
+      m.style.display = "none";
+    });
+
+    modal.style.display = "flex";
+    document.body.classList.add("modal-open");
+  }
+
+  function closeModal(modal) {
+    if (!modal) return;
+
+    modal.style.display = "none";
+    document.body.classList.remove("modal-open");
+
+    clearForms();
+  }
+
+  function switchModal(closeM, openM) {
+    document.querySelectorAll(".modal-overlay").forEach(modal => {
+      modal.style.display = "none";
+    });
+
+    if (openM) {
+      openM.style.display = "flex";
+    }
+
+    document.body.classList.add("modal-open");
+
+    clearForms();
+  }
+
   function formatName(name) {
     if (!name) return "Usuario";
     return name.charAt(0).toUpperCase() + name.slice(1);
@@ -19,43 +64,82 @@ document.addEventListener("DOMContentLoaded", () => {
     return JSON.parse(jsonPayload);
   }
 
-  // MODAL
+  
+  // TOGGLE PASSWORD 
+  
+  function togglePasswordVisibility(inputId, toggleId) {
+    const input = document.getElementById(inputId);
+    const toggle = document.getElementById(toggleId);
 
-  document.querySelectorAll('[data-login]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.getElementById('loginModal').style.display = 'flex';
-      document.body.classList.add("modal-open");
+    if (!input || !toggle) return;
+
+    toggle.addEventListener("click", () => {
+      const icon = toggle.querySelector("i");
+
+      if (input.type === "password") {
+        input.type = "text";
+        icon.classList.replace("fa-eye", "fa-eye-slash");
+      } else {
+        input.type = "password";
+        icon.classList.replace("fa-eye-slash", "fa-eye");
+      }
+    });
+  }
+
+  togglePasswordVisibility("loginPassword", "toggleLoginPassword");
+
+
+  // MODALES
+
+  const loginModal = document.getElementById("loginModal");
+  const registerModal = document.getElementById("registerModal");
+  const resetModal = document.getElementById("resetModal");
+
+  document.querySelectorAll(".login-link").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      openModal(loginModal);
     });
   });
 
-  document.getElementById('loginModal').addEventListener('click', (e) => {
-    if (e.target.id === 'loginModal') {
-      document.getElementById('loginModal').style.display = 'none';
-      document.body.classList.remove("modal-open");
-    }
+  document.querySelectorAll(".register-link").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      switchModal(loginModal, registerModal);
+    });
   });
+
+  document.querySelectorAll(".forgot-password a").forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      switchModal(loginModal, resetModal);
+    });
+  });
+
+  const backToLogin = document.getElementById("backToLogin");
+  if (backToLogin) {
+    backToLogin.addEventListener("click", (e) => {
+      e.preventDefault();
+      switchModal(resetModal, loginModal);
+    });
+  }
+
+  window.addEventListener("click", (e) => {
+    if (e.target === loginModal) closeModal(loginModal);
+    if (e.target === registerModal) closeModal(registerModal);
+    if (e.target === resetModal) closeModal(resetModal);
+  });
+
+  document.querySelectorAll(".close-modal").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const modalId = btn.getAttribute("data-close");
+      const modal = document.getElementById(modalId);
+      closeModal(modal);
+    });
+  });
+
 
   // RESET PASSWORD
-
-  document.querySelectorAll('.forgot-password a').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById('resetModal').style.display = 'flex';
-      document.getElementById('loginModal').style.display = 'none';
-    });
-  });
-
-  document.getElementById('resetModal').addEventListener('click', (e) => {
-    if (e.target.id === 'resetModal') {
-      document.getElementById('resetModal').style.display = 'none';
-    }
-  });
-
-  document.getElementById('backToLogin').addEventListener('click', (e) => {
-    e.preventDefault();
-    document.getElementById('resetModal').style.display = 'none';
-    document.getElementById('loginModal').style.display = 'flex';
-  });
 
   const resetForm = document.getElementById("resetForm");
 
@@ -73,44 +157,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!res.ok) {
           const error = await res.json();
-          throw new Error(error.detail || "No se pudo enviar el correo de recuperación");
+          throw new Error(error.detail || "No se pudo enviar el correo");
         }
 
         Swal.fire({
           icon: 'success',
           title: 'Correo enviado',
-          text: 'Se ha enviado un enlace de recuperación a tu correo',
-          background: '#f9f9f9',
-          color: '#333',
-          confirmButtonColor: '#1E6FB9',
-          customClass: {
-            popup: 'swal-custom-popup',
-            title: 'swal-custom-title',
-            confirmButton: 'swal-custom-button'
-          }
+          text: 'Revisa tu correo para recuperar la contraseña',
+          confirmButtonColor: '#1E6FB9'
         });
 
-        document.getElementById('resetModal').style.display = 'none';
-        document.getElementById('loginModal').style.display = 'flex';
-        document.body.classList.add("modal-open"); 
+        switchModal(resetModal, loginModal);
 
       } catch (err) {
         Swal.fire({
           icon: 'error',
           title: 'Error',
           text: err.message,
-          background: '#f9f9f9',
-          color: '#333',
-          confirmButtonColor: '#1E6FB9',
-          customClass: {
-            popup: 'swal-custom-popup',
-            title: 'swal-custom-title',
-            confirmButton: 'swal-custom-button'
-          }
+          confirmButtonColor: '#1E6FB9'
         });
       }
     });
   }
+
 
   // LOGIN TRADICIONAL
 
@@ -121,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
 
       const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+      const password = document.getElementById("loginPassword").value;
 
       fetch("http://localhost:8000/auth/login", {
         method: "POST",
@@ -131,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify({ email, password })
       })
         .then(res => {
-          if (!res.ok) throw new Error("El correo o contraseña no son correctos.");
+          if (!res.ok) throw new Error("Correo o contraseña incorrectos");
           return res.json();
         })
         .then(data => {
@@ -148,22 +217,38 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(err => {
           Swal.fire({
             icon: 'error',
-            title: 'Error de inicio de sesión',
+            title: 'Error de login',
             text: err.message,
-            background: '#f9f9f9',
-            color: '#333',
-            confirmButtonColor: '#1E6FB9',
-            customClass: {
-              popup: 'swal-custom-popup',
-              title: 'swal-custom-title',
-              confirmButton: 'swal-custom-button'
-            }
+            confirmButtonColor: '#1E6FB9'
           });
         });
     });
   }
 
-  // LOGIN GOOGLE
+
+  // GOOGLE
+
+  function renderGoogleButtons() {
+    if (!window.google || !google.accounts) return;
+
+    const loginContainer = document.getElementById("google-btn");
+    if (loginContainer && loginContainer.children.length === 0) {
+      google.accounts.id.renderButton(loginContainer, {
+        theme: "outline",
+        size: "large",
+        width: 300
+      });
+    }
+
+    const registerContainer = document.getElementById("google-btn-register");
+    if (registerContainer && registerContainer.children.length === 0) {
+      google.accounts.id.renderButton(registerContainer, {
+        theme: "outline",
+        size: "large",
+        width: 300
+      });
+    }
+  }
 
   window.handleCredentialResponse = function (response) {
     const token = response.credential;
@@ -176,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
       body: JSON.stringify({ token })
     })
       .then(res => {
-        if (!res.ok) throw new Error("Error en login con Google");
+        if (!res.ok) throw new Error("Error con Google");
         return res.json();
       })
       .then(data => {
@@ -195,16 +280,9 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch(err => {
         Swal.fire({
           icon: 'error',
-          title: 'Error en login con Google',
+          title: 'Error con Google',
           text: err.message,
-          background: '#f9f9f9',
-          color: '#333',
-          confirmButtonColor: '#1E6FB9',
-          customClass: {
-            popup: 'swal-custom-popup',
-            title: 'swal-custom-title',
-            confirmButton: 'swal-custom-button'
-          }
+          confirmButtonColor: '#1E6FB9'
         });
       });
   };
@@ -224,24 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
       callback: handleCredentialResponse
     });
 
-    renderGoogleButton();
+    renderGoogleButtons(); 
   });
 
-  function renderGoogleButton() {
-    if (!window.google || !google.accounts) return;
-
-    const container = document.getElementById("google-btn");
-    if (!container) return;
-
-    if (container.children.length > 0) return;
-
-    google.accounts.id.renderButton(container, {
-      theme: "outline",
-      size: "large",
-      width: 300
-    });
-  }
-
 });
-
-

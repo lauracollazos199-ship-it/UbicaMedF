@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("changePasswordForm");
 
   const newPasswordInput = document.getElementById("newPassword");
-  const confirmPasswordInput = document.getElementById("confirmPassword");
+  const confirmPasswordInput = document.getElementById("confirmNewPassword"); // ✅ CORREGIDO
   const passwordHint = document.getElementById("passwordHint");
   const passwordMatch = document.getElementById("passwordMatch");
 
@@ -30,11 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (confirmPasswordInput.value === newPasswordInput.value) {
       passwordMatch.textContent = "✔ Las contraseñas coinciden";
       passwordMatch.style.color = "#4CAF50";
-      passwordMatch.style.textAlign = "left";
     } else {
       passwordMatch.textContent = "✖ Las contraseñas no coinciden";
       passwordMatch.style.color = "#E53935";
-      passwordMatch.style.textAlign = "left";
     }
   });
 
@@ -42,42 +40,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const input = document.getElementById(inputId);
     const toggle = document.getElementById(toggleId);
 
+    if (!input || !toggle) return; // ✅ PROTECCIÓN
+
     toggle.addEventListener("click", () => {
       const icon = toggle.querySelector("i");
+
       if (input.type === "password") {
         input.type = "text";
-        icon.classList.remove("fa-eye");
-        icon.classList.add("fa-eye-slash");
+        icon.classList.replace("fa-eye", "fa-eye-slash");
       } else {
         input.type = "password";
-        icon.classList.remove("fa-eye-slash");
-        icon.classList.add("fa-eye");
+        icon.classList.replace("fa-eye-slash", "fa-eye");
       }
     });
   }
 
   togglePasswordVisibility("newPassword", "toggleNewPassword");
-  togglePasswordVisibility("confirmPassword", "toggleConfirmPassword");
+  togglePasswordVisibility("confirmNewPassword", "toggleConfirmPassword"); // ✅ CORREGIDO
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const newPassword = document.getElementById("newPassword").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
+    const confirmPassword = document.getElementById("confirmNewPassword").value; // ✅ CORREGIDO
 
     if (newPassword !== confirmPassword) {
       Swal.fire({
         icon: 'error',
         title: 'Error',
         text: 'Las contraseñas no coinciden',
-        background: '#f9f9f9',
-        color: '#333',
-        confirmButtonColor: '#E53935', 
-        customClass: {
-          popup: 'swal-custom-popup',
-          title: 'swal-custom-title',
-          confirmButton: 'swal-custom-button'
-        }
+        confirmButtonColor: '#E53935'
       });
       return;
     }
@@ -90,14 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: 'error',
         title: 'Token inválido',
         text: 'El enlace ha expirado o no es válido',
-        background: '#f9f9f9',
-        color: '#333',
-        confirmButtonColor: '#E53935',
-        customClass: {
-          popup: 'swal-custom-popup',
-          title: 'swal-custom-title',
-          confirmButton: 'swal-custom-button'
-        }
+        confirmButtonColor: '#E53935'
       });
       return;
     }
@@ -112,58 +97,23 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       });
 
-      if (!res.ok) {
-        let errorMessage = "La contraseña no cumple con los requisitos";
-        try {
-          const error = await res.json();
-          if (Array.isArray(error.detail) && error.detail.length > 0) {
-            errorMessage = error.detail[0].msg;
-          } else if (typeof error.detail === "string") {
-            errorMessage = error.detail;
-          }
-        } catch {
-          const errorText = await res.text();
-          errorMessage = errorText || errorMessage;
-        }
-        throw new Error(errorMessage);
-      }
+      if (!res.ok) throw new Error("Error al cambiar la contraseña");
 
       Swal.fire({
         icon: 'success',
-        title: 'Cambio de contraseña existoso',
-        text: 'Ahora puede iniciar sesión',
-        background: '#f9f9f9',
-        color: '#333',
-        confirmButtonColor: '#4CAF50', 
-        customClass: {
-          popup: 'swal-custom-popup',
-          title: 'swal-custom-title',
-          confirmButton: 'swal-custom-button'
-        }
+        title: 'Contraseña actualizada',
+        text: 'Ahora puedes iniciar sesión',
+        confirmButtonColor: '#4CAF50'
       }).then(() => {
         window.location.href = "index.html";
       });
 
     } catch (err) {
-      let errorMessage = err.message;
-
-      const match = errorMessage.match(/Value error, ([^']+)/);
-      if (match && match[1]) {
-        errorMessage = match[1];
-      }
-
       Swal.fire({
         icon: 'error',
-        title: errorMessage.toLowerCase().includes("contraseña") ? "Contraseña inválida" : "Error",
-        text: errorMessage,
-        background: '#f9f9f9',
-        color: '#333',
-        confirmButtonColor: '#1E6FB9',
-        customClass: {
-          popup: 'swal-custom-popup',
-          title: 'swal-custom-title',
-          confirmButton: 'swal-custom-button'
-        }
+        title: 'Error',
+        text: err.message,
+        confirmButtonColor: '#1E6FB9'
       });
     }
   });

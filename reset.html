@@ -4,47 +4,61 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UbicaMed - Cambiar contraseña</title>
+
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
+
   <!-- Modal flotante -->
   <div class="modal-overlay" style="display:flex;">
     <div class="modal-content" style="width:500px;">
+
       <h2>Restablecer contraseña</h2>
       <p class="reset-subtext">Ingresa tu nueva contraseña para continuar.</p>
 
       <div class="divider"></div>
 
       <form id="changePasswordForm">
-        <!-- Campo nueva contraseña -->
-  <div class="input-group">
-    <span class="input-icon">
-      <i class="fa-solid fa-lock"></i>
-    </span>
-    <input type="password" id="newPassword" placeholder="Nueva contraseña" required>
-    <span class="toggle-password" id="toggleNewPassword">
-    <i class="fa-solid fa-eye"></i>
-  </span>
-  </div>
-  <small id="passwordHint" class="password-hint">
-    Entre 8 y 64 caracteres, al menos una mayúscula, una minúscula, un número y un carácter especial.
-  </small>
 
-  <!-- Campo confirmar contraseña -->
-  <div class="input-group">
-    <span class="input-icon">
-      <i class="fa-solid fa-lock"></i>
-    </span>
-    <input type="password" id="confirmPassword" placeholder="Confirmar contraseña" required>
-    <span class="toggle-password" id="toggleConfirmPassword">
-    <i class="fa-solid fa-eye"></i>
-  </span>
-  </div>
-  <small id="passwordMatch" class="password-hint"></small>
+        <!-- Nueva contraseña -->
+        <div class="input-group">
+          <span class="input-icon">
+            <i class="fa-solid fa-lock"></i>
+          </span>
 
-  <button type="submit" class="btn-primary">Cambiar contraseña</button>
-</form>
+          <input type="password" id="newPassword" placeholder="Nueva contraseña" required>
+
+          <button type="button" id="toggleNewPassword" class="toggle-btn">
+            <i class="fa fa-eye"></i>
+          </button>
+        </div>
+
+        <small id="passwordHint" class="password-hint">
+          Entre 8 y 64 caracteres, al menos una mayúscula, una minúscula, un número y un carácter especial.
+        </small>
+
+        <!-- Confirmar contraseña -->
+        <div class="input-group">
+          <span class="input-icon">
+            <i class="fa-solid fa-lock"></i>
+          </span>
+
+          <input type="password" id="confirmNewPassword" placeholder="Confirmar contraseña" required>
+
+          <button type="button" id="toggleConfirmPassword" class="toggle-btn">
+            <i class="fa fa-eye"></i>
+          </button>
+        </div>
+
+        <small id="passwordMatch" class="password-hint"></small>
+
+        <button type="submit" class="btn-primary">
+          Cambiar contraseña
+        </button>
+
+      </form>
 
       <div class="divider"></div>
 
@@ -52,10 +66,13 @@
         Si continúas, indicas que aceptas y reconoces las 
         <a href="#">Políticas de privacidad</a>.
       </p>
+
     </div>
   </div>
 
-  <script src="js/views/reset.js"></script>
+  <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/views/reset.js"></script>
+
 </body>
 </html>
