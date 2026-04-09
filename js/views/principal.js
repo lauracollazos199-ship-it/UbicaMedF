@@ -6,6 +6,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const mapContainer = document.getElementById("map-container");
   const hospitalInfo = document.getElementById("hospital-info");
 
+  // HAMBURGUESA PANEL LATERAL
+const hamburgerBtn = document.querySelector(".hamburger");
+const userPanel = document.getElementById("userPanel");
+
+if (hamburgerBtn && userPanel) {
+  hamburgerBtn.addEventListener("click", () => {
+    userPanel.classList.toggle("open");
+  });
+
+  overlayMenu.addEventListener("click", () => {
+  userPanel.classList.remove("open");
+  overlayMenu.classList.remove("active");
+});
+
+}
+
  
   // USUARIO
   

@@ -24,12 +24,14 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('[data-login]').forEach(btn => {
     btn.addEventListener('click', () => {
       document.getElementById('loginModal').style.display = 'flex';
+      document.body.classList.add("modal-open");
     });
   });
 
   document.getElementById('loginModal').addEventListener('click', (e) => {
     if (e.target.id === 'loginModal') {
       document.getElementById('loginModal').style.display = 'none';
+      document.body.classList.remove("modal-open");
     }
   });
 
@@ -90,6 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.getElementById('resetModal').style.display = 'none';
         document.getElementById('loginModal').style.display = 'flex';
+        document.body.classList.add("modal-open"); 
 
       } catch (err) {
         Swal.fire({
