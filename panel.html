@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -18,12 +18,11 @@
   <!-- Botón hamburguesa -->
   <div class="hamburger">☰</div>
 
-  <!-- Overlay para cerrar al hacer clic fuera -->
+  <!-- Overlay -->
   <div class="overlay-menu" id="overlayMenu"></div>
 
   <!-- PANEL LATERAL -->
   <aside class="user-panel" id="userPanel">
-    <div class="panel-header"></div>
 
     <div class="user-section">
       <i class="fa-solid fa-user"></i>
@@ -35,10 +34,15 @@
 
     <nav class="menu">
       <ul>
-        <li><i class="fa-solid fa-pen-to-square"></i> Actualizar datos</li>
-        <li id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</li>
+        <li id="openUpdateUser">
+          <i class="fa-solid fa-pen-to-square"></i> Actualizar datos
+        </li>
+        <li id="logoutBtn">
+          <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+        </li>
       </ul>
     </nav>
+
   </aside>
 
   <!-- CONTENIDO -->
@@ -62,7 +66,6 @@
         Consulta los hospitales más cercanos según tu EPS y tu ubicación actual.
       </p>
 
-      <!-- 🔹 BUSQUEDA -->
       <div class="panel-search-card" id="searchCard">
         <label for="eps">Tu EPS</label>
         <select id="eps"></select>
@@ -75,26 +78,74 @@
         <p id="result-text"></p>
       </div>
 
-      <!-- 🔹 MAPA -->
       <div id="map-container" style="display:none;">
-
         <div id="map"></div>
-
         <div id="hospital-info"></div>
 
         <button id="volverBusqueda" class="btn-volver" style="display:none;">
            Volver a buscar
         </button>
-
       </div>
 
     </section>
 
   </main>
 
+  <!-- 🔥 MODAL ACTUALIZAR USUARIO -->
+<div id="updateUserContainer" class="modal-overlay">
+  <div class="modal-content">
+
+    <h2>Actualizar Usuario</h2>
+    <div class="divider top"></div>
+
+    <form id="updateUserForm">
+
+      <!-- nombre -->
+      <div class="input-group">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" id="updateNombre" placeholder="Nuevo nombre">
+      </div>
+
+      <!-- contraseña actual -->
+      <div class="input-group">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="oldPassword" placeholder="Contraseña actual">
+      </div>
+
+      <!-- nueva contraseña -->
+      <div class="input-group">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="newPassword" placeholder="Nueva contraseña">
+      </div>
+
+      <!-- confirmar contraseña -->
+      <div class="input-group">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="confirmPassword" placeholder="Confirmar contraseña">
+      </div>
+
+      <!-- 🔥 reglas de contraseña -->
+      <small id="passwordRules"></small>
+
+      <!-- 🔥 match de contraseñas -->
+      <small id="passwordMatch"></small>
+
+      <button type="submit" class="btn-primary">
+        Actualizar
+      </button>
+
+    </form>
+
+    <button id="closeUpdateUser" class="close">×</button>
+
+  </div>
+</div>
+
+  <!-- SCRIPTS -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="js/views/principal.js"></script>
+  <script src="js/views/informacion_usuario.js"></script>
 
 </body>
 </html>

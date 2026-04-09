@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
- 
   // FUNCIONES GENERALES
 
   function clearForms() {
@@ -64,9 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return JSON.parse(jsonPayload);
   }
 
-  
   // TOGGLE PASSWORD 
-  
   function togglePasswordVisibility(inputId, toggleId) {
     const input = document.getElementById(inputId);
     const toggle = document.getElementById(toggleId);
@@ -87,10 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   togglePasswordVisibility("loginPassword", "toggleLoginPassword");
-
+  togglePasswordVisibility("registerPassword", "toggleRegisterPassword");
+  togglePasswordVisibility("confirmPassword", "toggleConfirmPassword");
 
   // MODALES
-
   const loginModal = document.getElementById("loginModal");
   const registerModal = document.getElementById("registerModal");
   const resetModal = document.getElementById("resetModal");
@@ -138,9 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-
   // RESET PASSWORD
-
   const resetForm = document.getElementById("resetForm");
 
   if (resetForm) {
@@ -180,9 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-
   // LOGIN TRADICIONAL
-
   const loginForm = document.getElementById("loginForm");
 
   if (loginForm) {
@@ -225,9 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-
   // GOOGLE
-
   function renderGoogleButtons() {
     if (!window.google || !google.accounts) return;
 
@@ -303,6 +294,46 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     renderGoogleButtons(); 
+  });
+
+  // ------------------------------------------
+  // MODAL TERMINOS Y CONDICIONES
+  // ------------------------------------------
+  const termsModal = document.getElementById("termsModal");
+  const closeTermsBtn = document.getElementById("closeTermsModal");
+  const acceptTermsBtn = document.getElementById("acceptTermsBtn");
+
+  // Abrir modal cuando se haga clic en cualquier enlace de políticas de privacidad
+  document.querySelectorAll(".terms-text a").forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      termsModal.style.display = "flex";
+      document.body.classList.add("modal-open");
+    });
+  });
+
+  // Cerrar modal con la "X"
+  if (closeTermsBtn) {
+    closeTermsBtn.addEventListener("click", () => {
+      termsModal.style.display = "none";
+      document.body.classList.remove("modal-open");
+    });
+  }
+
+  // Cerrar modal con "Aceptar"
+  if (acceptTermsBtn) {
+    acceptTermsBtn.addEventListener("click", () => {
+      termsModal.style.display = "none";
+      document.body.classList.remove("modal-open");
+    });
+  }
+
+  // Cerrar modal si se hace clic fuera de la ventana
+  window.addEventListener("click", (e) => {
+    if (e.target === termsModal) {
+      termsModal.style.display = "none";
+      document.body.classList.remove("modal-open");
+    }
   });
 
 });
