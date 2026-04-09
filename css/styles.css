@@ -348,8 +348,9 @@ body.modal-open {
 }
 
 #google-btn {
-  width: 300px;  
-  height: 40px;   
+  width: 100% !important;
+  max-width: 280px !important;
+  height: auto   
 }
 
 
@@ -922,81 +923,80 @@ body.modal-open {
   color: #1E6FB9;
 }
 
-/* TABLETS (≤768px) */
-@media (max-width: 768px) {
+/* Términos*/
+.terms-modal{
+max-height:80vh;
+overflow-y:auto;
+}
 
-  /* NAVBAR */
-  .navbar {
-    flex-direction: row;
-    flex-wrap: wrap;   
-    justify-content: center;
-    gap: 8px;
-  }
+.terms-content{
+text-align:left;
+line-height:1.6;
+}
 
-  .navbar .logo-text {
-    font-size: 1.2rem;     
-  }
+.terms-content h3{
+margin-top:20px;
+color:#1E6FB9;
+}
 
-  .nav-buttons .btn-primary,
-  .nav-buttons .btn-outline {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
-  }
+.terms-date{
+font-size:14px;
+color:#888;
+margin-bottom:15px;
+}
 
-  /* TITULOS */
-  .headline {
-    font-size: 2.2rem;
-    text-align: center;
-  }
+/* === ACTUALIZAR USUARIO === */
 
-  .subtext {
-    font-size: 1rem;
-    padding: 0 10px;
-  }
+#updateUserContainer .modal-content {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
 
-  /* CARDS con scroll horizontal */
-  .cards {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+#updateUserContainer h2 {
+  color: #1E6FB9;
+  font-weight: 700;
+}
 
-  .card {
-    flex: 0 0 300px;
-    margin-right: 1rem;
-    max-width: 300px;
-  }
+/* Inputs */
+#updateUserContainer .input-group input {
+  background: #f9fafb;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
 
-  /* CONTENIDO */
-  .main-content,
-  .panel-main {
-    padding: 10px;
-    height: auto;
-  }
+#updateUserContainer .input-group input:focus {
+  background: #fff;
+  border-color: #1E6FB9;
+  box-shadow: 0 0 6px rgba(30,111,185,0.3);
+}
 
-  /* MAPA */
-  #map {
-    height: 300px;
-  }
+/* Botón */
+#updateUserContainer .btn-primary {
+  border-radius: 10px;
+  font-weight: 600;
+}
 
-  /* MODAL */
-  .modal-content {
-    width: 95%;
-    max-width: 340px;
-    padding: 1.2rem;
-  }
+#updateUserContainer .btn-primary:hover {
+  background: #1B3C8F;
+  transform: translateY(-2px);
+}
 
-  /* BOTÓN GOOGLE */
-  #google-btn {
-    width: 100%;
-    max-width: 280px;
-  }
+/* Cerrar */
+#updateUserContainer .close {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 /* CELULARES PEQUEÑOS (≤480px) */
 @media (max-width: 480px) {
 
-  /* Logo y texto juntos, más grandes */
+  /* Logo */
   .logo-container {
     display: flex;
     flex-direction: row;
@@ -1021,14 +1021,14 @@ body.modal-open {
     line-height: 1.2 !important;
   }
 
-  /* Título principal centrado */
+  /* Título principal */
   .headline {
     font-size: 2.2rem !important;
     text-align: center !important;
     margin: 0.5rem 0 !important;
   }
 
-  /* Botones centrados debajo del título */
+  /* Botones navbar */
   .nav-buttons {
     width: 100% !important;
     display: flex !important;
@@ -1044,20 +1044,40 @@ body.modal-open {
     font-size: 1.2rem !important;
     padding: 0.9rem 1.2rem !important;
     text-align: center !important;
+    height: 50px; /* igual que el botón de Google */
   }
 
-  /* Botón de Google ajustado */
-  .google-btn,
-  .btn-google,
-  #google-btn {
+  /* BOTÓN GOOGLE centrado y consistente */
+  .btn-google {
+  width: 85%;
+  max-width: 280px;
+  height: 50px;
+  margin: 0 auto !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding-top: 6px; /* baja el iframe dentro del bloque */
+}
+
+  #google-btn,
+  #google-btn-register {
     width: 100% !important;
     max-width: 280px !important;
+    height: 100% !important;
     margin: 0 auto !important;
-    display: block !important;
-    text-align: center !important;
+    padding: 0 !important;
   }
 
-  /* Subtexto debajo de los botones */
+  /* Ajuste del iframe del botón Google */
+  #google-btn iframe,
+  #google-btn-register iframe {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 280px !important;
+    display: block !important; /* evita que se expanda con flex */
+  }
+
+  /* Subtexto */
   .subtext {
     font-size: 1rem !important;
     text-align: center !important;
@@ -1065,7 +1085,7 @@ body.modal-open {
     margin-bottom: 1rem !important;
   }
 
-  /* Tarjetas apiladas */
+  /* Cards */
   .cards {
     flex-direction: column !important;
     align-items: center !important;
@@ -1079,7 +1099,7 @@ body.modal-open {
     margin: 0 auto !important;
   }
 
-  /* MODAL más compacto */
+  /* MODAL */
   .modal-content {
     width: 95%;
     max-width: 300px;
@@ -1095,7 +1115,7 @@ body.modal-open {
     padding: 0.7rem 2.5rem 0.7rem 2.2rem;
   }
 
-  /* Hamburguesa visible solo en móviles */
+  /* HAMBURGUESA */
   .hamburger {
     font-size: 2rem;
     cursor: pointer;
@@ -1104,20 +1124,34 @@ body.modal-open {
     z-index: 1100;
   }
 
-  /* Panel lateral en móviles: oculto por defecto */
+  /* PANEL LATERAL legible con fondo semi-transparente */
   .user-panel {
-    left: -80%;   
-    width: 80%;   
-    transition: left 0.3s ease;
-    background: #fff; 
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    height: 100vh;
+    overflow-y: auto;
     z-index: 1000;
+
+    /* Fondo semi-transparente para difuminar fondo pero legible */
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(4px);
+    color: #333;
+    padding: 1rem;
   }
 
   .user-panel.open {
-    left: 0;        
+    left: 0;
   }
 
-  /* Overlay para cerrar al hacer clic fuera */
+  /* Quita espacio en blanco */
+  .panel-main {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  /* OVERLAY */
   .overlay-menu {
     position: fixed;
     top: 0; left: 0;
@@ -1130,4 +1164,25 @@ body.modal-open {
   .overlay-menu.active {
     display: block;
   }
+
+  /* TOPBAR UbicaMed + Bogotá */
+  .panel-topbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    text-align: center;
+    padding: 0.5rem 0;
+  }
+
+  .panel-topbar .logo-container {
+    order: 1;
+  }
+
+  .panel-topbar .location {
+    order: 2;
+    font-size: 1rem;
+    color: #333;
+  }
+
 }
