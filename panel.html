@@ -15,13 +15,9 @@
   <div class="background-layer"></div>
   <div class="overlay"></div>
 
-  <!-- Botón hamburguesa -->
   <div class="hamburger">☰</div>
-
-  <!-- Overlay -->
   <div class="overlay-menu" id="overlayMenu"></div>
 
-  <!-- PANEL LATERAL -->
   <aside class="user-panel" id="userPanel">
 
     <div class="user-section">
@@ -45,7 +41,6 @@
 
   </aside>
 
-  <!-- CONTENIDO -->
   <main class="panel-main">
 
     <header class="panel-topbar">
@@ -91,7 +86,7 @@
 
   </main>
 
-  <!-- 🔥 MODAL ACTUALIZAR USUARIO -->
+<!-- MODAL -->
 <div id="updateUserContainer" class="modal-overlay">
   <div class="modal-content">
 
@@ -100,35 +95,45 @@
 
     <form id="updateUserForm">
 
-      <!-- nombre -->
+      <!-- NOMBRE -->
       <div class="input-group">
-        <i class="fa-solid fa-user"></i>
+        <span class="input-icon">
+          <i class="fa-solid fa-user"></i>
+        </span>
         <input type="text" id="updateNombre" placeholder="Nuevo nombre">
       </div>
 
-      <!-- contraseña actual -->
-      <div class="input-group">
-        <i class="fa-solid fa-lock"></i>
-        <input type="password" id="oldPassword" placeholder="Contraseña actual">
+      <div id="passwordSection">
+
+        <div class="input-group password-group">
+          <span class="input-icon">
+            <i class="fa-solid fa-lock"></i>
+          </span>
+          <input type="password" id="oldPassword" placeholder="Contraseña actual">
+          <i class="fa-solid fa-eye toggle-password" data-target="oldPassword"></i>
+        </div>
+
+        <div class="input-group password-group">
+          <span class="input-icon">
+            <i class="fa-solid fa-lock"></i>
+          </span>
+          <input type="password" id="newPassword" placeholder="Nueva contraseña">
+          <i class="fa-solid fa-eye toggle-password" data-target="newPassword"></i>
+        </div>
+
+        <small id="passwordRules" class="password-hint"></small>
+
+        <div class="input-group password-group">
+          <span class="input-icon">
+            <i class="fa-solid fa-lock"></i>
+          </span>
+          <input type="password" id="confirmPassword" placeholder="Confirmar contraseña">
+          <i class="fa-solid fa-eye toggle-password" data-target="confirmPassword"></i>
+        </div>
+
+        <small id="passwordMatch" class="password-match"></small>
+
       </div>
-
-      <!-- nueva contraseña -->
-      <div class="input-group">
-        <i class="fa-solid fa-lock"></i>
-        <input type="password" id="newPassword" placeholder="Nueva contraseña">
-      </div>
-
-      <!-- confirmar contraseña -->
-      <div class="input-group">
-        <i class="fa-solid fa-lock"></i>
-        <input type="password" id="confirmPassword" placeholder="Confirmar contraseña">
-      </div>
-
-      <!-- 🔥 reglas de contraseña -->
-      <small id="passwordRules"></small>
-
-      <!-- 🔥 match de contraseñas -->
-      <small id="passwordMatch"></small>
 
       <button type="submit" class="btn-primary">
         Actualizar
@@ -141,11 +146,10 @@
   </div>
 </div>
 
-  <!-- SCRIPTS -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="js/views/principal.js"></script>
-  <script src="js/views/informacion_usuario.js"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/views/principal.js"></script>
+<script src="js/views/informacion_usuario.js"></script>
 
 </body>
 </html>

@@ -200,8 +200,10 @@ document.addEventListener("DOMContentLoaded", () => {
           localStorage.setItem("token", data.access_token);
 
           const usuario = {
+            id: data.user_id || data.id,
             nombre: data.nombre,
-            email: data.email
+            email: data.email,
+            google: false
           };
 
           localStorage.setItem("usuario", JSON.stringify(usuario));
@@ -261,8 +263,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const payload = parseJwt(data.access_token);
 
         const usuario = {
+          id: data.user_id || data.id,
           nombre: formatName(data.nombre || payload.email.split("@")[0]),
-          email: data.email || payload.email
+          email: data.email || payload.email,
+          google: true
         };
 
         localStorage.setItem("usuario", JSON.stringify(usuario));
@@ -294,46 +298,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     renderGoogleButtons(); 
-  });
-
-  // ------------------------------------------
-  // MODAL TERMINOS Y CONDICIONES
-  // ------------------------------------------
-  const termsModal = document.getElementById("termsModal");
-  const closeTermsBtn = document.getElementById("closeTermsModal");
-  const acceptTermsBtn = document.getElementById("acceptTermsBtn");
-
-  // Abrir modal cuando se haga clic en cualquier enlace de políticas de privacidad
-  document.querySelectorAll(".terms-text a").forEach(link => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      termsModal.style.display = "flex";
-      document.body.classList.add("modal-open");
-    });
-  });
-
-  // Cerrar modal con la "X"
-  if (closeTermsBtn) {
-    closeTermsBtn.addEventListener("click", () => {
-      termsModal.style.display = "none";
-      document.body.classList.remove("modal-open");
-    });
-  }
-
-  // Cerrar modal con "Aceptar"
-  if (acceptTermsBtn) {
-    acceptTermsBtn.addEventListener("click", () => {
-      termsModal.style.display = "none";
-      document.body.classList.remove("modal-open");
-    });
-  }
-
-  // Cerrar modal si se hace clic fuera de la ventana
-  window.addEventListener("click", (e) => {
-    if (e.target === termsModal) {
-      termsModal.style.display = "none";
-      document.body.classList.remove("modal-open");
-    }
   });
 
 });

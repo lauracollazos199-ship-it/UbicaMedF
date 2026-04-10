@@ -354,6 +354,7 @@ body.modal-open {
 }
 
 
+
 /* DIVIDER */
 .divider {
   display: flex;
@@ -945,52 +946,64 @@ color:#888;
 margin-bottom:15px;
 }
 
-/* === ACTUALIZAR USUARIO === */
-
-#updateUserContainer .modal-content {
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(12px);
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+/* === Actualizar Usuario === */
+#updateUserContainer .input-group {
+  margin: 1rem 0;             
 }
 
-#updateUserContainer h2 {
-  color: #1E6FB9;
-  font-weight: 700;
-}
-
-/* Inputs */
 #updateUserContainer .input-group input {
-  background: #f9fafb;
-  border-radius: 10px;
-  transition: all 0.3s ease;
+  padding: 0.8rem 2.5rem 0.8rem 2.2rem; 
+  font-size: 1rem;
 }
 
-#updateUserContainer .input-group input:focus {
-  background: #fff;
-  border-color: #1E6FB9;
-  box-shadow: 0 0 6px rgba(30,111,185,0.3);
+#updateUserContainer .input-icon {
+  left: 12px;                
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
 }
 
-/* Botón */
-#updateUserContainer .btn-primary {
-  border-radius: 10px;
-  font-weight: 600;
+#updateUserContainer .toggle-password {
+  position: absolute;
+  right: 12px;                
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #999;
 }
 
-#updateUserContainer .btn-primary:hover {
-  background: #1B3C8F;
-  transform: translateY(-2px);
+#updateUserContainer .toggle-password:hover {
+  color: #1E6FB9;
 }
 
-/* Cerrar */
+/* Mensajes de reglas y coincidencia */
+#updateUserContainer #passwordRules,
+#updateUserContainer #passwordMatch {
+  display: block;
+  text-align: left;
+  font-size: 0.85rem;
+  margin-top: 6px;
+  color: #999; 
+}
+
 #updateUserContainer .close {
   position: absolute;
-  top: 12px;
+  top: 12px;         
   right: 15px;
-  font-size: 1.5rem;
+  font-size: 1.5rem; 
+  color: #666;
   cursor: pointer;
+  background: none;  
+  border: none;     
+  line-height: 1;    
+}
+
+#updateUserContainer .close:hover {
+  color: #1E6FB9;   
+}
+
+.hidden {
+  display: none !important;
 }
 
 /* CELULARES PEQUEÑOS (≤480px) */
@@ -1044,7 +1057,7 @@ margin-bottom:15px;
     font-size: 1.2rem !important;
     padding: 0.9rem 1.2rem !important;
     text-align: center !important;
-    height: 50px; /* igual que el botón de Google */
+    height: 50px; 
   }
 
   /* BOTÓN GOOGLE centrado y consistente */
@@ -1056,7 +1069,7 @@ margin-bottom:15px;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  padding-top: 6px; /* baja el iframe dentro del bloque */
+  padding-top: 6px; 
 }
 
   #google-btn,
@@ -1074,7 +1087,7 @@ margin-bottom:15px;
     width: 100% !important;
     height: 100% !important;
     max-width: 280px !important;
-    display: block !important; /* evita que se expanda con flex */
+    display: block !important; 
   }
 
   /* Subtexto */
@@ -1124,7 +1137,7 @@ margin-bottom:15px;
     z-index: 1100;
   }
 
-  /* PANEL LATERAL legible con fondo semi-transparente */
+  /* PANEL LATERAL */
   .user-panel {
     position: fixed;
     top: 0;
@@ -1134,7 +1147,6 @@ margin-bottom:15px;
     overflow-y: auto;
     z-index: 1000;
 
-    /* Fondo semi-transparente para difuminar fondo pero legible */
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(4px);
     color: #333;
@@ -1145,7 +1157,6 @@ margin-bottom:15px;
     left: 0;
   }
 
-  /* Quita espacio en blanco */
   .panel-main {
     margin-left: 0 !important;
     width: 100% !important;
@@ -1165,7 +1176,7 @@ margin-bottom:15px;
     display: block;
   }
 
-  /* TOPBAR UbicaMed + Bogotá */
+  /* TOPBAR */
   .panel-topbar {
     display: flex;
     flex-direction: column;
@@ -1185,4 +1196,238 @@ margin-bottom:15px;
     color: #333;
   }
 
+}
+
+
+/** == TERMINOS Y CONDICIONES== **/
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY*/
+body.terminos-body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fb;
+  color: #333;
+}
+
+/*  HEADER */
+.terminos-header {
+  width: 100%;
+  padding: 12px 40px; 
+  background: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* LOGO */
+.terminos-logo {
+  display: flex;
+  align-items: center;
+}
+
+.terminos-logo img {
+  width: 65px;   
+  height: 65px;
+  object-fit: contain;
+  margin-right: 15px;
+}
+
+/* TEXTO LOGO */
+.terminos-logo span {
+  font-size: 28px;
+  font-weight: 800; 
+  color: #2c4fa3;
+}
+
+/* NAV */
+.terminos-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* INICIAR SESIÓN */
+.terminos-nav a:first-child {
+  border: 2px solid #2ecc71;
+  color: #2ecc71;
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.terminos-nav a:first-child:hover {
+  background: #2ecc71;
+  color: white;
+}
+
+/* REGISTRARSE */
+.terminos-btn {
+  background: #2c6ed5;
+  color: #fff !important;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.terminos-btn:hover {
+  background: #1e4fa3;
+}
+
+/* CONTENIDO PRINCIPAL*/
+.terminos-content {
+  max-width: 1200px; 
+  margin: 30px auto;
+  padding: 45px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+}
+
+/* TITULOS */
+.terminos-content h1 {
+  font-size: 56px;
+  margin-bottom: 30px;
+  color: #1a1a1a;
+}
+
+.terminos-content h2 {
+  font-size: 30px;
+  color: #2c4fa3;
+  margin-bottom: 10px;
+}
+
+.terminos-content h3 {
+  margin-top: 30px;
+  font-size: 22px;
+  color: #2c4fa3;
+}
+
+/* TEXTO */
+.terminos-content p {
+  margin-top: 10px;
+  line-height: 1.9;
+  color: #555;
+  font-size: 17px;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 45px;
+  border-bottom: 2px solid #e0e6f5;
+}
+
+.tab {
+  padding-bottom: 14px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  color: #666;
+  position: relative;
+  transition: 0.3s;
+}
+
+/* Línea animada */
+.tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 3px;
+  background: #2c6ed5;
+  transition: 0.3s;
+}
+
+.tab:hover {
+  color: #2c6ed5;
+}
+
+.tab.active {
+  color: #2c6ed5;
+  font-weight: 700;
+}
+
+.tab.active::after {
+  width: 100%;
+}
+
+/* CONTENIDO DE TABS */
+.tab-content {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ANIMACIÓN */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+  .terminos-header {
+    padding: 12px 20px;
+  }
+
+  .terminos-logo img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .terminos-logo span {
+    font-size: 22px;
+  }
+
+  .terminos-content {
+    margin: 15px;
+    padding: 25px;
+  }
+
+  .terminos-content h1 {
+    font-size: 34px;
+  }
+
+  .terminos-content h2 {
+    font-size: 24px;
+  }
+
+  .terminos-content h3 {
+    font-size: 20px;
+  }
+
+  .tabs {
+    gap: 20px;
+  }
+
+  .tab {
+    font-size: 15px;
+  }
 }

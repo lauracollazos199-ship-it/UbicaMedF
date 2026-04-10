@@ -1,30 +1,53 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-const termsModal = document.getElementById("termsModal");
-const closeTerms = document.getElementById("closeTermsModal");
-const acceptTerms = document.getElementById("acceptTermsBtn");
+  const loginModal = document.getElementById("loginModal");
+  const registerModal = document.getElementById("registerModal");
 
-const termsLinks = document.querySelectorAll(".terms-link");
+  const loginBtns = document.querySelectorAll(".login-link");
+  const registerBtns = document.querySelectorAll(".register-link");
 
-termsLinks.forEach(link => {
-    link.addEventListener("click", (e) => {
-        e.preventDefault();
-        termsModal.style.display = "flex";
+  const closeBtns = document.querySelectorAll(".close-modal");
+
+
+  // ABRIR LOGIN
+
+  loginBtns.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      loginModal.style.display = "flex";
     });
-});
+  });
 
-closeTerms.addEventListener("click", () => {
-    termsModal.style.display = "none";
-});
 
-acceptTerms.addEventListener("click", () => {
-    termsModal.style.display = "none";
-});
+  // ABRIR REGISTRO
 
-window.addEventListener("click", (e) => {
-    if(e.target === termsModal){
-        termsModal.style.display = "none";
-    }
-});
+  registerBtns.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      registerModal.style.display = "flex";
+    });
+  });
+
+
+  // CERRAR MODALES
+
+  closeBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const modalId = btn.getAttribute("data-close");
+      const modal = document.getElementById(modalId);
+
+      if (modal) {
+        modal.style.display = "none";
+      }
+    });
+  });
+
+ 
+  // CLICK FUERA DEL MODAL
+
+  window.addEventListener("click", (e) => {
+    if (e.target === loginModal) loginModal.style.display = "none";
+    if (e.target === registerModal) registerModal.style.display = "none";
+  });
 
 });
