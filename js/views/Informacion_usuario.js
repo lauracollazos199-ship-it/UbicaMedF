@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     passwordMatch.textContent =
       match
         ? "✔ Las contraseñas coinciden"
-        : "✖ No coinciden";
+        : "✖ Las contraseñas no coinciden";
 
     passwordMatch.style.color = match ? "#4CAF50" : "#999";
   });

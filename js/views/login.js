@@ -87,6 +87,23 @@ document.addEventListener("DOMContentLoaded", () => {
   togglePasswordVisibility("registerPassword", "toggleRegisterPassword");
   togglePasswordVisibility("confirmPassword", "toggleConfirmPassword");
 
+  // VALIDACIÓN EMAIL LOGIN 
+  const loginEmailInput = document.getElementById("email");
+  const loginEmailError = document.getElementById("loginEmailError");
+
+  if (loginEmailInput && loginEmailError) {
+    loginEmailInput.addEventListener("input", () => {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!regex.test(loginEmailInput.value)) {
+        loginEmailError.textContent = "Correo inválido";
+        loginEmailError.style.color = "grey";
+      } else {
+        loginEmailError.textContent = "";
+      }
+    });
+  }
+
   // MODALES
   const loginModal = document.getElementById("loginModal");
   const registerModal = document.getElementById("registerModal");
@@ -175,6 +192,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+const resetEmailInput = document.getElementById("resetEmail");
+const resetEmailHint = document.getElementById("resetEmailHint");
+
+if (resetEmailInput && resetEmailHint) {
+  resetEmailInput.addEventListener("input", () => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (resetEmailInput.value === "") {
+      resetEmailHint.textContent = "";
+    } else if (!regex.test(resetEmailInput.value)) {
+      resetEmailHint.textContent = "Correo inválido";
+      resetEmailHint.style.color = "#999"; 
+    } 
+  });
+}
+
   // LOGIN TRADICIONAL
   const loginForm = document.getElementById("loginForm");
 
@@ -184,6 +217,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const email = document.getElementById("email").value;
       const password = document.getElementById("loginPassword").value;
+
+      // VALIDACIÓN ANTES DE ENVIAR 
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!regex.test(email)) {
+        if (loginEmailError) {
+          loginEmailError.textContent = "Correo no válido";
+          loginEmailError.style.color = "red";
+        }
+        return;
+      }
 
       fetch("http://localhost:8000/auth/login", {
         method: "POST",
@@ -220,7 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // GOOGLE (ARREGLADO)
+  // GOOGLE 
 
   function renderGoogleButtons() {
   if (!window.google || !google.accounts) return;
@@ -229,7 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const loginContainer = document.getElementById("google-btn");
   if (loginContainer) {
-    loginContainer.innerHTML = ""; // 🔥 limpia el botón anterior
+    loginContainer.innerHTML = "";
     google.accounts.id.renderButton(loginContainer, {
       theme: "outline",
       size: "large",
@@ -239,7 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const registerContainer = document.getElementById("google-btn-register");
   if (registerContainer) {
-    registerContainer.innerHTML = ""; // 🔥 limpia
+    registerContainer.innerHTML = "";
     google.accounts.id.renderButton(registerContainer, {
       theme: "outline",
       size: "large",

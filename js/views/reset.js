@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("changePasswordForm");
 
   const newPasswordInput = document.getElementById("newPassword");
-  const confirmPasswordInput = document.getElementById("confirmNewPassword"); // ✅ CORREGIDO
+  const confirmPasswordInput = document.getElementById("confirmNewPassword"); // 
   const passwordHint = document.getElementById("passwordHint");
   const passwordMatch = document.getElementById("passwordMatch");
 
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const input = document.getElementById(inputId);
     const toggle = document.getElementById(toggleId);
 
-    if (!input || !toggle) return; // ✅ PROTECCIÓN
+    if (!input || !toggle) return; 
 
     toggle.addEventListener("click", () => {
       const icon = toggle.querySelector("i");
@@ -56,13 +56,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   togglePasswordVisibility("newPassword", "toggleNewPassword");
-  togglePasswordVisibility("confirmNewPassword", "toggleConfirmPassword"); // ✅ CORREGIDO
+  togglePasswordVisibility("confirmNewPassword", "toggleConfirmPassword"); // 
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const newPassword = document.getElementById("newPassword").value;
-    const confirmPassword = document.getElementById("confirmNewPassword").value; // ✅ CORREGIDO
+    const confirmPassword = document.getElementById("confirmNewPassword").value; // 
 
     if (newPassword !== confirmPassword) {
       Swal.fire({

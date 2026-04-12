@@ -63,28 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // MOSTRAR/OCULTAR PASSWORD
-  function togglePasswordVisibility(inputId, toggleId) {
-    const input = document.getElementById(inputId);
-    const toggle = document.getElementById(toggleId);
-
-    if (!input || !toggle) return;
-
-    toggle.addEventListener("click", () => {
-      const icon = toggle.querySelector("i");
-
-      if (input.type === "password") {
-        input.type = "text";
-        icon.classList.replace("fa-eye", "fa-eye-slash");
-      } else {
-        input.type = "password";
-        icon.classList.replace("fa-eye-slash", "fa-eye");
-      }
-    });
-  }
-
-  togglePasswordVisibility("registerPassword", "toggleRegisterPassword");
-  togglePasswordVisibility("confirmPassword", "toggleConfirmPassword");
+  
 
   // SUBMIT
   if (registerForm) {
