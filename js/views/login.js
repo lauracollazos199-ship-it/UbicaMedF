@@ -220,28 +220,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // GOOGLE
+  // GOOGLE (ARREGLADO)
+
   function renderGoogleButtons() {
-    if (!window.google || !google.accounts) return;
+  if (!window.google || !google.accounts) return;
 
-    const loginContainer = document.getElementById("google-btn");
-    if (loginContainer && loginContainer.children.length === 0) {
-      google.accounts.id.renderButton(loginContainer, {
-        theme: "outline",
-        size: "large",
-        width: 300
-      });
-    }
+  const width = window.innerWidth <= 480 ? 260 : 300;
 
-    const registerContainer = document.getElementById("google-btn-register");
-    if (registerContainer && registerContainer.children.length === 0) {
-      google.accounts.id.renderButton(registerContainer, {
-        theme: "outline",
-        size: "large",
-        width: 300
-      });
-    }
+  const loginContainer = document.getElementById("google-btn");
+  if (loginContainer) {
+    loginContainer.innerHTML = ""; // 🔥 limpia el botón anterior
+    google.accounts.id.renderButton(loginContainer, {
+      theme: "outline",
+      size: "large",
+      width: width
+    });
   }
+
+  const registerContainer = document.getElementById("google-btn-register");
+  if (registerContainer) {
+    registerContainer.innerHTML = ""; // 🔥 limpia
+    google.accounts.id.renderButton(registerContainer, {
+      theme: "outline",
+      size: "large",
+      width: width
+    });
+  }
+}
 
   window.handleCredentialResponse = function (response) {
     const token = response.credential;
@@ -299,5 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderGoogleButtons(); 
   });
+
+  window.addEventListener("resize", renderGoogleButtons);
 
 });

@@ -1062,32 +1062,26 @@ margin-bottom:15px;
 
   /* BOTÓN GOOGLE centrado y consistente */
   .btn-google {
-  width: 85%;
-  max-width: 280px;
-  height: 50px;
-  margin: 0 auto !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  padding-top: 6px; 
-}
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+  }
 
   #google-btn,
   #google-btn-register {
-    width: 100% !important;
-    max-width: 280px !important;
-    height: 100% !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
+    width: auto !important;
+    min-width: 260px;
+    max-width: 300px;
+    margin: 0 auto;
   }
 
   /* Ajuste del iframe del botón Google */
+
   #google-btn iframe,
   #google-btn-register iframe {
-    width: 100% !important;
-    height: 100% !important;
-    max-width: 280px !important;
-    display: block !important; 
+    display: block;
+    margin: 0 auto;
   }
 
   /* Subtexto */
