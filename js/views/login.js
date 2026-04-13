@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
         Swal.fire({
           icon: 'success',
           title: 'Correo enviado',
-          text: 'Revisa tu correo para recuperar la contraseña',
+          text: 'Te enviamos un enlace para restablecer tu contraseña. Revisa tu bandeja de entrada.',
           confirmButtonColor: '#1E6FB9'
         });
 
