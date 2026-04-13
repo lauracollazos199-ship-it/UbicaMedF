@@ -1,4 +1,4 @@
-/* Reset - hola*/
+/* Reset */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html, body {
@@ -563,7 +563,7 @@ body.modal-open {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 20px 0 20px;
+  padding: 5px 20px 0 20px;
   margin-bottom: 20px;
 }
 

@@ -18,11 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     passwordHint.innerHTML = `
-      <span style="color:${checks.length ? '#4CAF50' : '#E53935'}">Entre 8 y 64 caracteres</span>,
-      <span style="color:${checks.uppercase ? '#4CAF50' : '#E53935'}">una mayúscula</span>,
-      <span style="color:${checks.lowercase ? '#4CAF50' : '#E53935'}">una minúscula</span>,
-      <span style="color:${checks.number ? '#4CAF50' : '#E53935'}">un número</span> y
-      <span style="color:${checks.special ? '#4CAF50' : '#E53935'}">un carácter especial</span>.
+      <span style="color:${checks.length ? '#4CAF50' : '#4b5563'}">Entre 8 y 64 caracteres</span>,
+      <span style="color:${checks.uppercase ? '#4CAF50' : '#4b5563'}">una mayúscula</span>,
+      <span style="color:${checks.lowercase ? '#4CAF50' : '#4b5563'}">una minúscula</span>,
+      <span style="color:${checks.number ? '#4CAF50' : '#4b5563'}">un número</span> y
+      <span style="color:${checks.special ? '#4CAF50' : '#4b5563'}">un carácter especial</span>.
     `;
   });
 
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
       passwordMatch.style.color = "#4CAF50";
     } else {
       passwordMatch.textContent = "✖ Las contraseñas no coinciden";
-      passwordMatch.style.color = "#E53935";
+      passwordMatch.style.color = "#4b5563";
     }
   });
 
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: 'error',
         title: 'Error',
         text: 'Las contraseñas no coinciden',
-        confirmButtonColor: '#E53935'
+        confirmButtonColor: '#4b5563'
       });
       return;
     }
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: 'error',
         title: 'Token inválido',
         text: 'El enlace ha expirado o no es válido',
-        confirmButtonColor: '#E53935'
+        confirmButtonColor: '#4b5563'
       });
       return;
     }
