@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      fetch("http://localhost:8000/users", {
+      fetch(`${BASE_URL}/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

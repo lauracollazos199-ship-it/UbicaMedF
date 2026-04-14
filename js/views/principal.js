@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!epsSelect) return;
 
     try {
-      const response = await fetch("http://localhost:8000/eps");
+      const response = await fetch(`${BASE_URL}/eps`);
       const epsList = await response.json();
 
       epsList.forEach(eps => {
@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (cacheResultados[key]) {
           data = cacheResultados[key];
         } else {
-          const url = `http://localhost:8000/hospitales?eps=${encodeURIComponent(eps)}&lat=${ubicacion.lat}&lng=${ubicacion.lng}`;
+          const url = `${BASE_URL}/hospitales?eps=${encodeURIComponent(eps)}&lat=${ubicacion.lat}&lng=${ubicacion.lng}`;
           const response = await fetch(url);
           data = await response.json();
           cacheResultados[key] = data;

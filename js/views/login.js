@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const email = document.getElementById("resetEmail").value;
 
       try {
-        const res = await fetch("http://localhost:8000/auth/forgot-password", {
+        const res = await fetch(`${BASE_URL}/auth/forgot-password`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email })
@@ -229,7 +229,7 @@ if (resetEmailInput && resetEmailHint) {
         return;
       }
 
-      fetch("http://localhost:8000/auth/login", {
+      fetch(`${BASE_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -295,7 +295,7 @@ if (resetEmailInput && resetEmailHint) {
   window.handleCredentialResponse = function (response) {
     const token = response.credential;
 
-    fetch("http://localhost:8000/auth/google", {
+    fetch(`${BASE_URL}/auth/google`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

@@ -181,7 +181,7 @@ function getErrorMessage(data) {
     }
 
     try {
-      const res = await fetch(`http://localhost:8000/users/${usuario.id}`, {
+      const res = await fetch(`${BASE_URL}/users/${usuario.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
