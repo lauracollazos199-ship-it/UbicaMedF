@@ -1,1 +1,1 @@
-const BASE_URL = "http://54.205.79.68:8000";
+const BASE_URL = "https://ubicamed.duckdns.org";
