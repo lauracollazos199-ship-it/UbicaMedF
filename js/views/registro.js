@@ -9,16 +9,55 @@ document.addEventListener("DOMContentLoaded", () => {
   const passwordHint = document.getElementById("passwordHint");
   const passwordMatch = document.getElementById("passwordMatch");
 
-  function limpiarMensaje(msg) {
-    if (!msg) return "";
+ // =========================
+// ERRORES
+// =========================
+function getErrorMessage(data) {
+  if (!data) return "Error desconocido";
 
-    msg = msg.replace(/^\d+:\s*/, "");
-    msg = msg.replace("Value error, ", "");
-    msg = msg.replace(/[\[\]']/g, "");
-    msg = msg.replace(/El usuario con email .* ya existe/, "Este correo ya está registrado");
+  let detail = data.detail || data.message || data;
 
-    return msg.trim();
+  // Función auxiliar para limpiar cualquier string
+  const clean = (msg) => {
+    let s = String(msg).trim();
+
+    // Elimina prefijos 
+    s = s.replace(/^400:\s*/i, "");
+    s = s.replace(/Value error,\s*/gi, ""); 
+    s = s.replace(/^\[+/, "").replace(/\]+$/, ""); 
+    s = s.replace(/^'+|'+$/g, "");
+
+    return s.trim();
+  };
+
+  // Caso string directo
+  if (typeof detail === "string") {
+    return clean(detail);
   }
+
+  // Caso lista tipo FastAPI / Pydantic
+  if (Array.isArray(detail)) {
+    return detail
+      .map(err => {
+        if (typeof err === "string") return clean(err);
+        if (err.msg) return clean(err.msg);
+        if (err.message) return clean(err.message);
+        return clean(JSON.stringify(err));
+      })
+      .join("\n");
+  }
+
+  // Caso objeto
+  if (typeof detail === "object") {
+    return Object.values(detail)
+      .flat()
+      .map(e => clean(e))
+      .join("\n");
+  }
+
+  // Fallback
+  return clean(detail);
+}
 
   // VALIDACIÓN EMAIL
   emailInput.addEventListener("input", () => {
@@ -67,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // SUBMIT
   if (registerForm) {
-    registerForm.addEventListener("submit", function (e) {
+    registerForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const nombre = document.getElementById("nombre").value;
@@ -75,46 +114,33 @@ document.addEventListener("DOMContentLoaded", () => {
       const password = passwordInput.value;
       const confirmPassword = confirmInput.value;
 
-      if (password !== confirmPassword) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error en registro',
-          text: 'Las contraseñas no coinciden',
-          confirmButtonColor: '#1E6FB9'
-        });
-        return;
-      }
-
-      fetch(`${BASE_URL}/users`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ nombre, email, password })
-      })
-        .then(res => {
-          if (!res.ok) throw new Error("Error en registro");
-          return res.json();
-        })
-        .then(() => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Registro exitoso',
-            text: 'Tu cuenta ha sido creada correctamente',
-            confirmButtonColor: '#1E6FB9'
-          }).then(() => {
-            window.location.href = "index.html";
-          });
-        })
-        .catch(err => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: err.message,
-            confirmButtonColor: '#1E6FB9'
-          });
-        });
-    });
+     if (password !== confirmPassword) {
+    return Swal.fire("Error", "Las contraseñas no coinciden", "error");
   }
 
+  try {
+    const res = await fetch(`${BASE_URL}/users`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ nombre, email, password })
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      throw new Error(getErrorMessage(data));
+    }
+
+    Swal.fire("Éxito", "Registro exitoso", "success").then(() => {
+      window.location.href = "index.html";
+    });
+
+  } catch (err) {
+    Swal.fire("Error", err.message, "error");
+  }
 });
+
+  }})
+     

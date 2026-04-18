@@ -204,7 +204,10 @@ if (resetEmailInput && resetEmailHint) {
     } else if (!regex.test(resetEmailInput.value)) {
       resetEmailHint.textContent = "Correo inválido";
       resetEmailHint.style.color = "#999"; 
-    } 
+    } else{
+      resetEmailHint.textContent = "";
+      resetEmailHint.style.color = "";
+    }
   });
 }
 
