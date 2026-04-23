@@ -1,1 +1,1 @@
-const BASE_URL = "https://ubicamed.duckdns.org";
+const BASE_URL = "https://apiubicamed.duckdns.org";
