@@ -58,7 +58,7 @@
     <section class="content">
 
       <h1>Buscar hospitales cercanos</h1>
-      <p class="subtitle">
+      <p class="subtitle" id="subtitleText">
         Consulta los hospitales más cercanos según tu EPS y tu ubicación actual.
       </p>
 
@@ -75,12 +75,19 @@
       </div>
 
       <div id="map-container" style="display:none;">
-        <div id="map"></div>
-        <div id="hospital-info"></div>
 
-        <button id="volverBusqueda" class="btn-volver" style="display:none;">
-           Volver a buscar
-        </button>
+        <div id="map"></div>
+
+        <div id="resultados-container">
+
+          <div id="hospital-info"></div>
+
+          <button id="volverBusqueda" class="btn-volver" style="display:none;">
+            Volver a buscar
+          </button>
+
+        </div>
+
       </div>
 
     </section>

@@ -7,12 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const mapContainer = document.getElementById("map-container");
   const hospitalInfo = document.getElementById("hospital-info");
 
-
   // HAMBURGUESA PANEL LATERAL
- 
+
   const hamburgerBtn = document.querySelector(".hamburger");
   const userPanel = document.getElementById("userPanel");
-  const overlayMenu = document.getElementById("overlayMenu"); 
+  const overlayMenu = document.getElementById("overlayMenu");
 
   if (hamburgerBtn && userPanel) {
     hamburgerBtn.addEventListener("click", () => {
@@ -31,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
- 
   // USUARIO
 
   let userData;
@@ -50,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     window.location.href = "index.html";
   }
-
 
   // MAPA
 
@@ -78,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .addTo(map)
       .bindPopup("Tu ubicación");
   }
-
 
   // FUNCIONES
 
@@ -150,7 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   cargarEPS();
 
-
   // BUSCAR HOSPITALES
 
   if (buscarBtn) {
@@ -191,14 +186,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
         mostrarHospitalesEnMapa(hospitales);
 
+        let html = "";
+
         const masCercano = hospitales[0];
-        hospitalInfo.innerHTML = `
-          <div class="hospital-card">
+
+        html += `
+          <div class="hospital-card destacado">
             <h2>Hospital más cercano</h2>
-            <p class="hospital-name">${masCercano.nombre}</p>
-            <p class="hospital-distance">Distancia: ${masCercano.distancia_km ?? "N/A"} km</p>
+            <p class="hospital-name">${masCercano.nombre ?? "Sin nombre"}</p>
+            <p class="direccion">${masCercano.direccion ?? "Sin dirección"}</p>
+            <p class="hospital-distance">
+              Distancia: ${masCercano.distancia_km ?? "N/A"} km
+            </p>
           </div>
         `;
+
+        html += `<h3 style="margin-top:15px;">Hospitales disponibles para esta EPS</h3>`;
+
+        hospitales.slice(1).forEach((h, index) => {
+          html += `
+            <div class="hospital-card">
+              <span class="numero">${index + 2}</span>
+              <p class="hospital-name">${h.nombre ?? "Sin nombre"}</p>
+              <p class="direccion">${h.direccion ?? "Sin dirección"}</p>
+              <p class="hospital-distance">
+                Distancia: ${h.distancia_km ?? "N/A"} km
+              </p>
+            </div>
+          `;
+        });
+
+        hospitalInfo.innerHTML = html;
+
+        const subtitle = document.getElementById("subtitleText");
+
+        if (subtitle) {
+          subtitle.innerHTML = `
+            <p>
+              El mapa indica la ubicación actual (rojo), el hospital más cercano (verde) y los demás disponibles (azul).
+              Al seleccionar un marcador, se muestra información básica del hospital.
+            </p>
+
+          `;
+        }
+
+        resultText.innerHTML = "";
 
         document.getElementById("searchCard").style.display = "none";
         volverBusquedaBtn.style.display = "block";
@@ -214,7 +246,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  
   // VOLVER
 
   if (volverBusquedaBtn) {
@@ -226,9 +257,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
       markers.forEach(m => map.removeLayer(m));
       markers = [];
+
+      const subtitle = document.getElementById("subtitleText");
+
+      if (subtitle) {
+        subtitle.innerHTML = `
+          Consulta los hospitales más cercanos según tu EPS y tu ubicación actual.
+        `;
+      }
     });
   }
-
 
   // LOGOUT
 

@@ -722,6 +722,39 @@ body.modal-open {
   text-align: center;
 }
 
+#resultados-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+.hospital-card.destacado {
+  background: #eef6ff;
+  border: 2px solid #1E6FB9;
+}
+
+
+.numero {
+  font-weight: bold;
+  color: #1E6FB9;
+  margin-right: 10px;
+}
+
+
+.distancia {
+  font-weight: bold;
+  color: #1E6FB9;
+}
+
+.direccion {
+  font-size: 0.95rem;
+  color: #333333;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
 .hospital-card {
   background: rgba(255,255,255,0.95);
   backdrop-filter: blur(8px);
@@ -755,9 +788,9 @@ body.modal-open {
 }
 
 .hospital-card .hospital-distance {
-  font-size: 1.1rem;  
-  color: #333;
-  font-weight: 500;
+  font-size: 1rem;  
+  color: #1B3C8F;
+  font-weight: 600;
 }
 
 /* BOTÓN */
@@ -778,6 +811,10 @@ body.modal-open {
 .btn-volver:hover {
   transform: scale(1.05);
   background: linear-gradient(135deg, #1B3C8F, #163A70);
+}
+
+.subtitle p {
+  margin-bottom: 8px;
 }
 
 /* Panel lateral */
